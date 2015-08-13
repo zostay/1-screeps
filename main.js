@@ -19,7 +19,7 @@ for(var name in Game.creeps) {
 	}
 
 	if(creep.memory.role == 'guard') {
-	    healer(creep);
+	    guard(creep);
 	}
 }
 
