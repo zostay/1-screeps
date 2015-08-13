@@ -1,4 +1,5 @@
 var builder = require('builder');
+var guard = require('guard');
 var harvester = require('harvester');
 var healer = require('healer')
 var spawner = require('spawner');
