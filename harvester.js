@@ -14,11 +14,13 @@ module.exports = function (creep) {
             }
     	}
         else {
+            creep.say("Out for delivery");
             creep.memory.state = 'deliver';
         }
     }
 	else {
         if (creep.carry.energy == 0) {
+            creep.say("Heading to pickup");
             creep.memory.state = 'harvest';
         }
         else {
