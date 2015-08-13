@@ -10,14 +10,19 @@ function spawnByRole(spawn, creeps, role, parts) {
     return spawn.createCreep(parts, name, { role: role }) == name;
 }
 
-function checkCreepSupply(spawn, all, creeps, role, count, parts) {
-    if (!spawn.memory.queue) spawn.memory.queue = [];
-    var inRoom  = creeps[role] ? creeps[role].length : 0;
+function countInQueue(spawn, role) {
     var inQueue = 0;
     for (var i in spawn.memory.queue) {
         var creepSpec = spawn.memory.queue[i];
         if (creepSpec[0] == role) inQueue++;
     }
+    return inQueue;
+}
+
+function checkCreepSupply(spawn, all, creeps, role, count, parts) {
+    if (!spawn.memory.queue) spawn.memory.queue = [];
+    var inRoom  = creeps[role] ? creeps[role].length : 0;
+    var inQueue = countInQueue(spawn, role);
     while (inRoom + inQueue < count) {
         spawn.memory.queue.push([ role, parts ]);
         inQueue++;
@@ -26,7 +31,7 @@ function checkCreepSupply(spawn, all, creeps, role, count, parts) {
 
 var LIFETIME = 1500;
 function spawnCreepEvery(spawn, creeps, role, ticks, parts) {
-    if (Game.time % ticks == 0) {
+    if (Game.time % ticks == 0 && countInQueue(spawn, role) == 0) {
         if (!spawn.memory.queue) spawn.memory.queue = [];
         spawn.memory.queue.push([ role, parts ]);
     }
