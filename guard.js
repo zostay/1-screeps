@@ -14,11 +14,13 @@ module.exports = function (creep) {
         var x = Math.round(Math.random() * 49 + 1);
         var y = Math.round(Math.random() * 49 + 1);
         var spot = creep.room.getPositionAt(x, y);
-        var stuff = spot.look();
-        for (var i in stuff) {
-            if (stuff[i].type === 'terrain' && stuff[i].terrain === 'plain') {
-                creep.memory.patrolTo = spot;
-                console.log(creep.name + ': Patrolling to [' + spot.x + ',' + spot.y + ']');
+        if (spot) {
+            var stuff = spot.look();
+            for (var i in stuff) {
+                if (stuff[i].type === 'terrain' && stuff[i].terrain === 'plain') {
+                    creep.memory.patrolTo = spot;
+                    console.log(creep.name + ': Patrolling to [' + spot.x + ',' + spot.y + ']');
+                }
             }
         }
     }
