@@ -7,24 +7,38 @@ function findNameByRole(spawn, role) {
 
 function spawnByRole(spawn, creeps, role, parts) {
     var name = findNameByRole(spawn, role);
-    spawn.createCreep(parts, name, { role: role });
+    return spawn.createCreep(parts, name, { role: role });
 }
 
 function checkCreepSupply(spawn, all, creeps, role, count, parts) {
-    if (!creeps[role] || creeps[role].length < count) {
-        spawnByRole(spawn, creeps, role, parts);
+    if (!spawn.memory.queue) spawn.memory.queue = [];
+    var inRoom  = creeps[role] ? creeps[role].length : 0;
+    var inQueue = 0;
+    for (var i in spawn.memory.queue) {
+        var creepSpec = spawn.memory.queue[i];
+        if (creepSpec[0] == role) inQueue++;
+    }
+    while (inRoom + inQueue < count) {
+        spawn.memory.queue.push([ role, parts ]);
+        inQueue++;
     }
 }
 
 var LIFETIME = 1500;
 function spawnCreepEvery(spawn, creeps, role, ticks, parts) {
-    if (Game.time % ticks == 0 || spawn.memory[role]) {
-        if (spawnByRole(spawn, creeps, role, parts) == OK) {
-            spawn.memory[role] = false;
-        }
-        else {
-            spawn.memory[role] = true;
-        }
+    if (Game.time % ticks == 0) {
+        if (!spawn.memory.queue) spawn.memory.queue = [];
+        spawn.memory.queue.push([ role, parts ]);
+    }
+}
+
+function spawnFromQueue(spawn, creeps) {
+    if (!spawn.memory.queue) return;
+    if (!spawn.memory.queue.length) return;
+
+    var r = spawnByRole(spawn, creeps, spawn.memory.queue[0][0], spawn.memory.queue[0][1]);
+    if (r == OK) {
+        spawn.memory.queue.shift();
     }
 }
 
@@ -43,4 +57,6 @@ module.exports = function (spawn) {
 
     spawnCreepEvery(spawn, roleCreeps, 'builder',   LIFETIME / 2, [WORK,CARRY,MOVE,MOVE]);
     spawnCreepEvery(spawn, roleCreeps, 'harvester', LIFETIME / 2, [WORK,CARRY,MOVE,MOVE]);
+
+    spawnFromQueue(spawn, roleCreeps);
 }
