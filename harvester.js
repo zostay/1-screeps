@@ -5,14 +5,14 @@ module.exports = function (creep) {
 		creep.harvest(sources[0]);
 	}
 	else {
-        if (Game.spawns.Home.energy == Game.spawns.Home.energyCapacity) {
-            var storages = creep.room.find(FIND_MY_STRUCTURES, {
-                filter: function(s) {
-                    return s.structureType == STRUCTURE_EXTENSION
-                        && s.energy < s.energyCapacity;
-                }
-            });
+        var storages = creep.room.find(FIND_MY_STRUCTURES, {
+            filter: function(s) {
+                return s.structureType == STRUCTURE_EXTENSION
+                    && s.energy < s.energyCapacity;
+            }
+        });
 
+        if (storages.length) {
             creep.moveTo(storages[0]);
             creep.transferEnergy(storages[0]);
         }
