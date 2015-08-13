@@ -1,8 +1,7 @@
 function checkCreepSupply(spawn, all, creeps, role, count, parts) {
     if (!creeps[role] || creeps[role].length < count) {
-        var index = 0;
-        while (all[role + index]) index++;
-        spawn.createCreep(parts, role + index, { role: role, nameIndex: index });
+        var count = creeps[role] ? creeps[role].length : 0;
+        spawn.createCreep(parts, role + count, { role: role });
     }
 }
 
