@@ -6,7 +6,7 @@ module.exports = function (creep) {
     }
     else if (creep.memory.patrolTo) {
         console.log('patrolling');
-        creep.moveTo(creep.memory.patrolTo);
+        creep.moveTo(creep.memory.patrolTo.x, creep.memory.patrolTo.y);
         if (creep.memory.patrolTo.x == creep.x && creep.memory.patrolTo.y == creep.y) {
             creep.memory.patrolTo = null;
         }
