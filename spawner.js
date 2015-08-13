@@ -15,7 +15,7 @@ module.exports = function (spawn) {
         roleCreeps[ thisCreep.memory.role ].push(thisCreep);
     }
 
-    var sources = creep.room.find(FIND_SOURCES);
+    var sources = spawn.room.find(FIND_SOURCES);
     checkCreepSupply(spawn, allCreeps, roleCreeps, 'harvester', sources.length, [WORK,CARRY,MOVE,MOVE]);
     checkCreepSupply(spawn, allCreeps, roleCreeps, 'builder',   2, [WORK,CARRY,MOVE,MOVE]);
 
