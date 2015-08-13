@@ -5,9 +5,8 @@ module.exports = function (creep) {
 	    creep.attack(targets[0]);
     }
     else if (creep.memory.patrolTo) {
-        console.log('patrolling');
         creep.moveTo(creep.memory.patrolTo.x, creep.memory.patrolTo.y);
-        if (creep.memory.patrolTo.x == creep.x && creep.memory.patrolTo.y == creep.y) {
+        if (creep.memory.patrolTo.x == creep.pos.x && creep.memory.patrolTo.y == creep.pos.y) {
             creep.memory.patrolTo = null;
         }
     }
@@ -17,9 +16,9 @@ module.exports = function (creep) {
         var spot = creep.room.getPositionAt(x, y);
         var stuff = spot.look();
         for (var i in stuff) {
-            console.log('[' + spot.x + ',' + spot.y + ']: ' + stuff[i].type);
             if (stuff[i].type === 'terrain' && stuff[i].terrain === 'plain') {
                 creep.memory.patrolTo = spot;
+                console.log(creep.name + ': Patrolling to [' + spot.x + ',' + spot.y + ']');
             }
         }
     }
