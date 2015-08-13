@@ -1,9 +1,22 @@
 module.exports = function (creep) {
-	if(creep.carry.energy < creep.carryCapacity) {
-		var sources = creep.room.find(FIND_SOURCES);
-		creep.moveTo(sources[0]);
-		creep.harvest(sources[0]);
-	}
+    creep.memory.state ||= 'harvest';
+    if (creep.memory.state == 'harvest') {
+    	if(creep.carry.energy < creep.carryCapacity) {
+    		var sources = creep.room.find(FIND_SOURCES, {
+                filter: function(s) {
+                    return s.energy > 100;
+                }
+            });
+
+            if (sources.length) {
+        		creep.moveTo(sources[0]);
+        		creep.harvest(sources[0]);
+            }
+    	}
+        else {
+            creep.memory.state = 'deliver';
+        }
+    }
 	else {
         var storages = creep.room.find(FIND_MY_STRUCTURES, {
             filter: function(s) {
