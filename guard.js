@@ -6,7 +6,13 @@ module.exports = function (creep) {
     }
     else if (creep.memory.patrolTo) {
         creep.moveTo(creep.memory.patrolTo.x, creep.memory.patrolTo.y);
-        if (creep.memory.patrolTo.x == creep.pos.x && creep.memory.patrolTo.y == creep.pos.y) {
+        var px = creep.memory.patrolTo.x,
+            py = creep.memory.patrolTo.y,
+            cx = creep.pos.x,
+            cy = creep.pos.y;
+
+        // patrol within a couple blocks is good enough
+        if (px >= cx - 2 && px <= cx + 2 && py >= cy - 2 && px <= cy + 2) {
             creep.memory.patrolTo = null;
         }
     }
