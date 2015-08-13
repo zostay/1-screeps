@@ -1,4 +1,4 @@
-function checkCreepSupply(creeps, role, count, parts) {
+function checkCreepSupply(spawn, creeps, role, count, parts) {
     if (!creeps[role] || creeps[role].length < count) {
         var count = !creeps[role] ? 0 : creeps[role].length;
         spawn.createCreep(parts, role + count, { role: role });
@@ -14,10 +14,10 @@ module.exports = function (spawn) {
         roleCreeps[ thisCreep.memory.role ].push(thisCreep);
     }
 
-    checkCreepSupply(roleCreeps, 'harvester', 1, [WORK,CARRY,MOVE,MOVE]);
-    checkCreepSupply(roleCreeps, 'builder',   1, [WORK,CARRY,MOVE,MOVE]);
+    checkCreepSupply(spawn, roleCreeps, 'harvester', 1, [WORK,CARRY,MOVE,MOVE]);
+    checkCreepSupply(spawn, roleCreeps, 'builder',   1, [WORK,CARRY,MOVE,MOVE]);
 
     var targets = spawn.room.find(FIND_HOSTILE_CREEPS);
     var min = targets.length < 1 ? 1 : targets.length;
-    checkCreepSupply(roleCreeps, 'guard', min, [TOUGH,ATTACK,MOVE,MOVE]);
+    checkCreepSupply(spawn, roleCreeps, 'guard', min, [TOUGH,ATTACK,MOVE,MOVE]);
 }
