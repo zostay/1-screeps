@@ -50,12 +50,13 @@ module.exports = function (spawn) {
         roleCreeps[ thisCreep.memory.role ].push(thisCreep);
     }
 
+    spawnCreepEvery(spawn, roleCreeps, 'harvester', LIFETIME / 2, [WORK,CARRY,MOVE,MOVE]);
+    
     var targets = spawn.room.find(FIND_HOSTILE_CREEPS);
     var min = targets.length < 1 ? 1 : targets.length;
     checkCreepSupply(spawn, allCreeps, roleCreeps, 'guard', min, [TOUGH,ATTACK,MOVE,MOVE]);
 
     spawnCreepEvery(spawn, roleCreeps, 'builder',   LIFETIME / 2, [WORK,CARRY,MOVE,MOVE]);
-    spawnCreepEvery(spawn, roleCreeps, 'harvester', LIFETIME / 2, [WORK,CARRY,MOVE,MOVE]);
 
     spawnFromQueue(spawn, roleCreeps);
 }
