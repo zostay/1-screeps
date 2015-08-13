@@ -12,8 +12,8 @@ module.exports = function (creep) {
         }
     }
     else {
-        var x = Math.random() * 49 + 1;
-        var y = Math.random() * 49 + 1;
+        var x = Math.round(Math.random() * 49 + 1);
+        var y = Math.round(Math.random() * 49 + 1);
         var spot = creep.room.getPositionAt(x, y);
         var stuff = spot.look();
         for (var i in stuff) {
