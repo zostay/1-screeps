@@ -51,7 +51,8 @@ module.exports = function (spawn) {
     }
 
     spawnCreepEvery(spawn, roleCreeps, 'harvester', LIFETIME / 2, [WORK,CARRY,MOVE,MOVE]);
-    
+    checkCreepSupply(spawn, allCreeps, roleCreeps, 'harvester', 1, [WORK,CARRY,MOVE,MOVE]);
+
     var targets = spawn.room.find(FIND_HOSTILE_CREEPS);
     var min = targets.length < 1 ? 1 : targets.length;
     checkCreepSupply(spawn, allCreeps, roleCreeps, 'guard', min, [TOUGH,ATTACK,MOVE,MOVE]);
