@@ -61,7 +61,7 @@ module.exports = function (spawn) {
     }
 
     var totalEnergy = spawn.energy;
-    var storages = creep.room.find(FIND_MY_STRUCTURES, {
+    var storages = spawn.room.find(FIND_MY_STRUCTURES, {
         filter: function(s) {
             return s.structureType == STRUCTURE_EXTENSION;
         }
