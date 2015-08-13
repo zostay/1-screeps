@@ -7,7 +7,7 @@ function findNameByRole(spawn, role) {
 
 function spawnByRole(spawn, creeps, role, parts) {
     var name = findNameByRole(spawn, role);
-    return spawn.createCreep(parts, name, { role: role });
+    return spawn.createCreep(parts, name, { role: role }) == name;
 }
 
 function checkCreepSupply(spawn, all, creeps, role, count, parts) {
@@ -36,8 +36,7 @@ function spawnFromQueue(spawn, creeps) {
     if (!spawn.memory.queue) return;
     if (!spawn.memory.queue.length) return;
 
-    var r = spawnByRole(spawn, creeps, spawn.memory.queue[0][0], spawn.memory.queue[0][1]);
-    if (r == OK) {
+    if (spawnByRole(spawn, creeps, spawn.memory.queue[0][0], spawn.memory.queue[0][1])) {
         spawn.memory.queue.shift();
     }
 }
