@@ -1,7 +1,8 @@
-function checkCreepSupply(spawn, creeps, role, count, parts) {
+function checkCreepSupply(spawn, all, creeps, role, count, parts) {
     if (!creeps[role] || creeps[role].length < count) {
-        var count = !creeps[role] ? 0 : creeps[role].length;
-        spawn.createCreep(parts, role + count, { role: role });
+        var index = 0;
+        while (all[role + index]) index++;
+        spawn.createCreep(parts, role + index, { role: role, nameIndex: index });
     }
 }
 
@@ -14,10 +15,11 @@ module.exports = function (spawn) {
         roleCreeps[ thisCreep.memory.role ].push(thisCreep);
     }
 
-    checkCreepSupply(spawn, roleCreeps, 'harvester', 1, [WORK,CARRY,MOVE,MOVE]);
-    checkCreepSupply(spawn, roleCreeps, 'builder',   1, [WORK,CARRY,MOVE,MOVE]);
+    var sources = creep.room.find(FIND_SOURCES);
+    checkCreepSupply(spawn, allCreeps, roleCreeps, 'harvester', sources.length, [WORK,CARRY,MOVE,MOVE]);
+    checkCreepSupply(spawn, allCreeps, roleCreeps, 'builder',   2, [WORK,CARRY,MOVE,MOVE]);
 
     var targets = spawn.room.find(FIND_HOSTILE_CREEPS);
     var min = targets.length < 1 ? 1 : targets.length;
-    checkCreepSupply(spawn, roleCreeps, 'guard', min, [TOUGH,ATTACK,MOVE,MOVE]);
+    checkCreepSupply(spawn, allCreeps, roleCreeps, 'guard', min, [TOUGH,ATTACK,MOVE,MOVE]);
 }
