@@ -6,9 +6,11 @@ module.exports = function (creep) {
 	}
 	else {
         if (Game.spawns.Home.energy == Game.spawns.Home.energyCapacity) {
-            var storages = creep.room.find(FIND_MY_STRUCTURES, function(s) {
-                return s.structureType == STRUCTURE_EXTENSION
-                    && s.energy < s.energyCapacity;
+            var storages = creep.room.find(FIND_MY_STRUCTURES, {
+                filter: function(s) {
+                    return s.structureType == STRUCTURE_EXTENSION
+                        && s.energy < s.energyCapacity;
+                }
             });
 
             creep.moveTo(storages[0]);
