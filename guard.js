@@ -6,8 +6,8 @@ module.exports = function (creep) {
     }
     else if (creep.memory.patrolTo) {
         creep.moveTo(creep.memory.patrolTo);
-        if (creep.memory.patrolTo.x == creep.x && creep.patrolTo.y == creep.y) {
-            creep.patrolTo = null;
+        if (creep.memory.patrolTo.x == creep.x && creep.memory.patrolTo.y == creep.y) {
+            creep.memory.patrolTo = null;
         }
     }
     else {
