@@ -18,20 +18,25 @@ module.exports = function (creep) {
         }
     }
 	else {
-        var storages = creep.room.find(FIND_MY_STRUCTURES, {
-            filter: function(s) {
-                return s.structureType == STRUCTURE_EXTENSION
-                    && s.energy < s.energyCapacity;
-            }
-        });
-
-        if (storages.length) {
-            creep.moveTo(storages[0]);
-            creep.transferEnergy(storages[0]);
+        if (creep.carry.energy == 0) {
+            creep.memory.state = 'harvest';
         }
         else {
-    		creep.moveTo(Game.spawns.Home);
-    		creep.transferEnergy(Game.spawns.Home)
+            var storages = creep.room.find(FIND_MY_STRUCTURES, {
+                filter: function(s) {
+                    return s.structureType == STRUCTURE_EXTENSION
+                        && s.energy < s.energyCapacity;
+                }
+            });
+
+            if (storages.length) {
+                creep.moveTo(storages[0]);
+                creep.transferEnergy(storages[0]);
+            }
+            else {
+        		creep.moveTo(Game.spawns.Home);
+        		creep.transferEnergy(Game.spawns.Home)
+            }
         }
 	}
 }
