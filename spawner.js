@@ -7,6 +7,7 @@ function findNameByRole(spawn, role) {
 
 function spawnByRole(spawn, creeps, role, parts) {
     var name = findNameByRole(spawn, role);
+    console.log("Spawning " + role + ": " + name);
     return spawn.createCreep(parts, name, { role: role }) == name;
 }
 
