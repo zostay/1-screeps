@@ -1,7 +1,7 @@
 function findNameByRole(spawn, role) {
     var index = 0;
     var creeps = Game.creeps;
-    while (creeps && creeps[ spawn.room.name + 'X' + role + 'X' + index ]) index++;
+    while (creeps[ spawn.room.name + 'X' + role + 'X' + index ]) index++;
     return spawn.room.name + 'X' + role + 'X' + index;
 }
 
@@ -12,7 +12,7 @@ function spawnByRole(spawn, creeps, role, parts) {
 
 function checkCreepSupply(spawn, all, creeps, role, count, parts) {
     if (!creeps[role] || creeps[role].length < count) {
-        spawnByRole(creeps, role, parts);
+        spawnByRole(spawn, creeps, role, parts);
     }
 }
 
