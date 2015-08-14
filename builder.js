@@ -1,7 +1,21 @@
 module.exports = function (creep) {
 	if (creep.carry.energy == 0) {
-		creep.moveTo(Game.spawns.Home);
-		Game.spawns.Home.transferEnergy(creep);
+        if (Game.spawns.Home.energy > creep.carryCapacity / 2) {
+    		creep.moveTo(Game.spawns.Home);
+    		Game.spawns.Home.transferEnergy(creep);
+        }
+        else {
+            var sources = creep.room.find(FIND_SOURCES, {
+                filter: function(s) {
+                    return s.energy > 100;
+                }
+            });
+
+            if (sources.length) {
+                creep.moveTo(sources[0]);
+                creep.harvest(sources[0]);
+            }
+        }
 	}
 	else {
 		var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
