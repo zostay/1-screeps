@@ -6,9 +6,9 @@ module.exports = function (creep) {
             creep.memory.state = 'gather';
         }
         else {
-    		var fixables = creep.room.find(FIND_MY_STRUCTURES, {
+    		var fixables = creep.room.find(FIND_STRUCTURES, {
                 filter: function(s) {
-                    return s.structureType != STRUCTURE_CONTROLLER
+                    return s.structureType == STRUCTURE_ROAD
                         && s.hits < s.hitsMax;
                 }
             });
