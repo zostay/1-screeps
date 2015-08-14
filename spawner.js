@@ -26,6 +26,7 @@ function countInQueue(spawn, role) {
 }
 
 function checkCreepSupply(spawn, all, creeps, role, count, parts) {
+    if (spawn.spawning) return;
     if (!spawn.memory.queue) spawn.memory.queue = [];
     var inRoom  = creeps[role] ? creeps[role].length : 0;
     var inQueue = countInQueue(spawn, role);
