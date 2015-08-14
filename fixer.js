@@ -8,7 +8,8 @@ module.exports = function (creep) {
         else {
     		var fixables = creep.room.find(FIND_MY_STRUCTURES, {
                 filter: function(s) {
-                    return s.hits < s.hitsMax;
+                    return s.structureType != STRUCTURE_CONTROLLER
+                        && s.hits < s.hitsMax;
                 }
             });
 
