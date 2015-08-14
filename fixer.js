@@ -1,4 +1,4 @@
-var fixer = require('util');
+var util = require('util');
 
 module.exports = function (creep) {
     creep.memory.state = creep.memory.state || 'repair';
