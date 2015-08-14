@@ -12,7 +12,7 @@ module.exports = function (creep) {
             cy = creep.pos.y;
 
         // patrol within a couple blocks is good enough
-        if (px >= cx - 2 && px <= cx + 2 && py >= cy - 2 && px <= cy + 2) {
+        if (px >= cx - 2 && px <= cx + 2 && py >= cy - 2 && py <= cy + 2) {
             creep.memory.patrolTo = null;
         }
     }

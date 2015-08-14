@@ -4,7 +4,7 @@ var harvester = require('harvester');
 var healer = require('healer')
 var spawner = require('spawner');
 
-for(var name in Game.creeps) {
+for (var name in Game.creeps) {
 	var creep = Game.creeps[name];
 
 	if(creep.memory.role == 'harvester') {
