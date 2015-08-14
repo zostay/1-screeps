@@ -56,7 +56,7 @@ function spawnFromQueue(spawn, creeps) {
 
 var WORKER_BODY     = [ MOVE, WORK, CARRY, MOVE ];
 var BIG_WORKER_BODY = [ MOVE, WORK,CARRY, WORK, CARRY, MOVE ];
-var GUARD_BODY      = [ MOVE, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, ATTACK, MOVE ];
+var GUARD_BODY      = [ MOVE, TOUGH, TOUGH, MOVE, ATTACK, MOVE ];
 
 module.exports = function (spawn) {
     var allCreeps = spawn.room.find(FIND_MY_CREEPS);
