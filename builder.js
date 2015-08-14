@@ -25,7 +25,7 @@ module.exports = function (creep) {
     }
     else {
         if (creep.memory.gatherFrom) {
-            creep.moveTo(creep.memory.gatherFrom);
+            creep.moveTo(creep.memory.gatherFrom.pos.x, creep.memory.gatherFrom.pos.y);
             if (creep.memory.gatherFrom.transferEnergy) {
                 creep.memory.gatherFrom.transferEnergy(creep);
             }
@@ -35,11 +35,12 @@ module.exports = function (creep) {
 
             if (creep.carry.energy == creep.carryCapacity) {
                 creep.say('Build');
+                creep.memory.gatherFrom = null;
                 creep.memory.state = 'build';
             }
         }
         else {
-            if (Game.spawns.Home.energy > creep.carryCapacity / 2) {
+            if (Game.spawns.Home.energy >= creep.carryCapacity / 2) {
                 creep.memory.gatherFrom = Game.spawns.Home;
             }
             else {
