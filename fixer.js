@@ -14,7 +14,7 @@ module.exports = function (creep) {
 
     		if (fixables.length) {
     			creep.moveTo(fixables[0]);
-    			creep.build(fixables[0]);
+    			creep.repair(fixables[0]);
     		}
 
     		// might as well do something
