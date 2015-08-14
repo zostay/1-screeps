@@ -84,8 +84,8 @@ module.exports = function (spawn) {
     var min = targets.length < 1 ? 1 : targets.length;
     checkCreepSupply(spawn, allCreeps, roleCreeps, 'guard', min, GUARD_BODY);
 
-    spawnCreepEvery(spawn, roleCreeps, 'fixer', LIFETIME / 2, worker);
-    spawnCreepEvery(spawn, roleCreeps, 'builder', LIFETIME / 2, worker);
+    spawnCreepEvery(spawn, roleCreeps, 'fixer', LIFETIME, worker);
+    spawnCreepEvery(spawn, roleCreeps, 'builder', LIFETIME / 3, worker);
 
     spawnFromQueue(spawn, roleCreeps);
 }
