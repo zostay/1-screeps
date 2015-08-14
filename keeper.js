@@ -95,7 +95,7 @@ module.exports = function (creep) {
             }
 
             if (creep.carry.energy == creep.carryCapacity) {
-                creep.say('Repair');
+                creep.say('Keep');
                 creep.memory.gatherFrom = null;
                 creep.memory.state = 'repair';
             }
