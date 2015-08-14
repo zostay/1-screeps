@@ -8,10 +8,19 @@ module.exports = function (creep) {
         else {
     		var fixables = creep.room.find(FIND_STRUCTURES, {
                 filter: function(s) {
-                    return (s.structureType == STRUCTURE_ROAD || s.structureType == STRUCTURE_RAMPART)
+                    return s.structureType == STRUCTURE_ROAD
                         && s.hits < s.hitsMax;
                 }
             });
+
+            var myFixables = creep.room.find(FIND_MY_STRUCTURES, {
+                filter: function(s) {
+                    return s.structureType == STRUCTURE_RAMPART
+                        && s.hits < s.hitsMax;
+                }
+            });
+
+            Array.prototype.push.apply(fixables, myFixables);
 
     		if (fixables.length) {
     			creep.moveTo(fixables[0]);
