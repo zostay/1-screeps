@@ -19,10 +19,10 @@ module.exports = function (creep) {
     		}
 
     		// might as well do something
-            // else {
-            //     creep.moveTo(creep.room.controller);
-            //     creep.upgradeController(creep.room.controller);
-            // }
+            else {
+                creep.moveTo(creep.room.controller);
+                creep.upgradeController(creep.room.controller);
+            }
         }
     }
     else {
