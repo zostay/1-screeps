@@ -35,8 +35,8 @@ module.exports = function (creep) {
                     );
                 }
             }).sort(function(a, b) {
-                var needA = (a.energyCapacity - a.energy) || (a.storeCapacity - a.store);
-                var needB = (b.energyCapacity - b.energy) || (a.storeCapacity - a.store);
+                var needA = a.energyCapacity ? a.energyCapacity - a.energy : a.storeCapacity - a.store;
+                var needB = b.energyCapacity ? b.energyCapacity - b.energy : a.storeCapacity - a.store;
                 return needB - needA;
             });
 
