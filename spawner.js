@@ -54,9 +54,9 @@ function spawnFromQueue(spawn, creeps) {
     }
 }
 
-var WORKER_BODY     = [ WORK, CARRY, MOVE, MOVE ];
-var BIG_WORKER_BODY = [ WORK, WORK, CARRY, CARRY, MOVE, MOVE ];
-var GUARD_BODY      = [ TOUGH, ATTACK, MOVE, MOVE ];
+var WORKER_BODY     = [ MOVE, WORK, CARRY, MOVE ];
+var BIG_WORKER_BODY = [ MOVE, WORK,CARRY, WORK, CARRY, MOVE ];
+var GUARD_BODY      = [ MOVE, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, ATTACK, MOVE ];
 
 module.exports = function (spawn) {
     var allCreeps = spawn.room.find(FIND_MY_CREEPS);
