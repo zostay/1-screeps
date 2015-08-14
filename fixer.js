@@ -13,15 +13,6 @@ module.exports = function (creep) {
                 }
             });
 
-            var myFixables = creep.room.find(FIND_MY_STRUCTURES, {
-                filter: function(s) {
-                    return s.structureType == STRUCTURE_RAMPART
-                        && s.hits < s.hitsMax;
-                }
-            });
-
-            Array.prototype.push.apply(fixables, myFixables);
-
     		if (fixables.length) {
     			creep.moveTo(fixables[0]);
     			creep.repair(fixables[0]);
