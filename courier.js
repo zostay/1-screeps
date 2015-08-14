@@ -8,7 +8,7 @@ module.exports = function (creep) {
                 }
             });
 
-            if (sources.length) {
+            if (storages.length) {
         		creep.moveTo(storages[0]);
         		creep.harvest(storages[0]);
             }
