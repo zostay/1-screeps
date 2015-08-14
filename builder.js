@@ -31,10 +31,20 @@ module.exports = function (creep) {
                 creep.memory.gatherFrom = null;
             }
             else if (gatherFrom.transferEnergy) {
-                gatherFrom.transferEnergy(creep);
+                if (gatherFrom.energy == 0) {
+                    creep.memory.gatherFrom = null;
+                }
+                else {
+                    gatherFrom.transferEnergy(creep);
+                }
             }
             else {
-                creep.harvest(gatherFrom);
+                if (gatherFrom.energy < 100) {
+                    creep.memory.gatherFrom = null;
+                }
+                else {
+                    creep.harvest(gatherFrom);
+                }
             }
 
             if (creep.carry.energy == creep.carryCapacity) {
