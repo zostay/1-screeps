@@ -36,7 +36,7 @@ module.exports = function (creep) {
                 }
             }).sort(function(a, b) {
                 var needA = a.energyCapacity ? a.energyCapacity - a.energy : a.storeCapacity - a.store;
-                var needB = b.energyCapacity ? b.energyCapacity - b.energy : a.storeCapacity - a.store;
+                var needB = b.energyCapacity ? b.energyCapacity - b.energy : b.storeCapacity - b.store;
                 return needB - needA;
             });
 
