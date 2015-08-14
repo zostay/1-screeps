@@ -25,12 +25,13 @@ module.exports = function (creep) {
     }
     else {
         if (creep.memory.gatherFrom) {
-            creep.moveTo(creep.memory.gatherFrom.pos.x, creep.memory.gatherFrom.pos.y);
-            if (creep.memory.gatherFrom.transferEnergy) {
-                creep.memory.gatherFrom.transferEnergy(creep);
+            var gatherFrom = Game.getObjectById(creep.memory.gatherFrom);
+            creep.moveTo(gatherFrom);
+            if (gatherFrom.transferEnergy) {
+                gatherFrom.transferEnergy(creep);
             }
             else {
-                creep.harvest(creep.memory.gatherFrom);
+                creep.harvest(gatherFrom);
             }
 
             if (creep.carry.energy == creep.carryCapacity) {
@@ -41,7 +42,7 @@ module.exports = function (creep) {
         }
         else {
             if (Game.spawns.Home.energy >= creep.carryCapacity / 2) {
-                creep.memory.gatherFrom = Game.spawns.Home;
+                creep.memory.gatherFrom = Game.spawns.Home.id;
             }
             else {
                 var sources = creep.room.find(FIND_SOURCES, {
@@ -51,7 +52,7 @@ module.exports = function (creep) {
                 });
 
                 if (sources.length) {
-                    creep.memory.gatherFrom = sources[0];
+                    creep.memory.gatherFrom = sources[0].id;
                 }
             }
         }
