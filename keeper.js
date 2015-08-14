@@ -41,14 +41,14 @@ module.exports = function (creep) {
             if (rampartTarget.hits == rampartTarget.hitsMax)
                 creep.memory.rampartTarget = null;
 
-            if (minHits < 200 && rampartTarget.hits >= 500)
+            if (minHits < 700 && rampartTarget.hits >= 1000)
                 creep.memory.rampartTarget = null;
         }
         else {
             // emergency
-            if (minHits < 200) {
+            if (minHits < 700) {
                 for (var i in ramparts) {
-                    if (ramparts[i].hits < 200) {
+                    if (ramparts[i].hits < 700) {
                         creep.say('Weak');
                         creep.memory.rampartTarget = ramparts[i].id;
                         creep.memory.repairsRemain = 10;
