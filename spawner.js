@@ -38,7 +38,7 @@ function checkCreepSupply(spawn, all, creeps, role, count, parts) {
 
 var LIFETIME = 1500;
 function spawnCreepEvery(spawn, creeps, role, ticks, stagger, parts) {
-    if ((Game.time + stagger) % ticks == 0 && countInQueue(spawn, role) == 0) {
+    if ((Game.time - stagger) % ticks == 0 && countInQueue(spawn, role) == 0) {
         if (!spawn.memory.queue) spawn.memory.queue = [];
         spawn.memory.queue.push([ role, parts ]);
     }
