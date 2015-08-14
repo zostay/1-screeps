@@ -79,7 +79,7 @@ module.exports = function (spawn) {
     }
 
     var harvester = totalEnergy > 400 ? BIG_HARVESTER_BODY : HARVESTER_BODY;
-    spawnCreepEvery(spawn, roleCreeps, 'harvester', LIFETIME / 2, harvester);
+    spawnCreepEvery(spawn, roleCreeps, 'harvester', LIFETIME / 4, harvester);
     checkCreepSupply(spawn, allCreeps, roleCreeps, 'harvester', 1, harvester);
 
     var targets = spawn.room.find(FIND_HOSTILE_CREEPS);
@@ -87,7 +87,7 @@ module.exports = function (spawn) {
     checkCreepSupply(spawn, allCreeps, roleCreeps, 'guard', min, GUARD_BODY);
 
     var builder = totalEnergy > 400 ? BIG_BUILDER_BODY : BUILDER_BODY;
-    spawnCreepEvery(spawn, roleCreeps, 'builder', LIFETIME / 2, builder);
+    spawnCreepEvery(spawn, roleCreeps, 'builder', LIFETIME / 4, builder);
 
     spawnFromQueue(spawn, roleCreeps);
 }
