@@ -31,13 +31,13 @@ module.exports = function (creep) {
                         && s.energy < s.energyCapacity
                     ) || (
                         s.structureType == STRUCTURE_STORAGE
-                        && s.store < s.storeCapacity
+                        && s.store.energy < s.storeCapacity
                     );
                 }
             })
             storages.sort(function(a, b) {
-                var needA = a.energyCapacity ? a.energyCapacity - a.energy : a.storeCapacity - a.store;
-                var needB = b.energyCapacity ? b.energyCapacity - b.energy : b.storeCapacity - b.store;
+                var needA = a.energyCapacity ? a.energyCapacity - a.energy : a.storeCapacity - a.store.energy;
+                var needB = b.energyCapacity ? b.energyCapacity - b.energy : b.storeCapacity - b.store.energy;
                 return needB - needA;
             });
 

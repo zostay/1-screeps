@@ -29,7 +29,8 @@ module.exports = function (creep) {
                     return s.structureType == STRUCTURE_EXTENSION
                         && s.energy < s.energyCapacity;
                 }
-            }).sort(function(a, b) {
+            })
+            storages.sort(function(a, b) {
                 var needA = s.energyCapacity - s.energy;
                 var needB = s.energyCapacity - s.energy;
                 return needB - needA;
