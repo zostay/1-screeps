@@ -1,6 +1,7 @@
 function findNameByRole(spawn, role) {
     var index = 0;
     var creeps = Game.creeps;
+    var roomName = spawn.room ? spawn.room.name : 'sim';
     while (creeps[ spawn.room.name + 'X' + role + 'X' + index ]) index++;
     return spawn.room.name + 'X' + role + 'X' + index;
 }
