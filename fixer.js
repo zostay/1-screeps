@@ -8,7 +8,7 @@ module.exports = function (creep) {
         else {
     		var fixables = creep.room.find(FIND_STRUCTURES, {
                 filter: function(s) {
-                    return s.structureType == STRUCTURE_ROAD
+                    return (s.structureType == STRUCTURE_ROAD || s.structureType == STRUCTURE_RAMPART)
                         && s.hits < s.hitsMax;
                 }
             });
