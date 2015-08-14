@@ -27,7 +27,10 @@ module.exports = function (creep) {
         if (creep.memory.gatherFrom) {
             var gatherFrom = Game.getObjectById(creep.memory.gatherFrom);
             creep.moveTo(gatherFrom);
-            if (gatherFrom.transferEnergy) {
+            if (!gatherFrom) {
+                creep.memory.gatherFrom = null;
+            }
+            else if (gatherFrom.transferEnergy) {
                 gatherFrom.transferEnergy(creep);
             }
             else {
