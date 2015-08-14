@@ -56,7 +56,16 @@ module.exports = function (creep) {
             }
         }
         else {
-            if (Game.spawns.Home.energy >= creep.carryCapacity / 2) {
+            var storages = creep.room.find(FIND_MY_STRUCTURES, {
+                filter: function(s) {
+                    return s.structureType == STRUCTURE_STORAGE;
+                }
+            });
+
+            if (storages.length) {
+                creep.memory.gatherFrom = storages[0].id;
+            }
+            else if (Game.spawns.Home.energy >= creep.carryCapacity / 2) {
                 creep.memory.gatherFrom = Game.spawns.Home.id;
             }
             else {

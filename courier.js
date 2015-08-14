@@ -1,16 +1,16 @@
 module.exports = function (creep) {
-    creep.memory.state = creep.memory.state || 'harvest';
-    if (creep.memory.state == 'harvest') {
+    creep.memory.state = creep.memory.state || 'pickup';
+    if (creep.memory.state == 'pickup') {
     	if (creep.carry.energy < creep.carryCapacity) {
-    		var sources = creep.room.find(FIND_SOURCES, {
+    		var storages = creep.room.find(FIND_MY_STRUCTURES, {
                 filter: function(s) {
-                    return s.energy > 100;
+                    return s.structureType == STRUCTURE_STORAGE;
                 }
             });
 
             if (sources.length) {
-        		creep.moveTo(sources[0]);
-        		creep.harvest(sources[0]);
+        		creep.moveTo(storages[0]);
+        		creep.harvest(storages[0]);
             }
     	}
         else {
@@ -20,14 +20,13 @@ module.exports = function (creep) {
     }
 	else {
         if (creep.carry.energy == 0) {
-            creep.say("Harvest");
-            creep.memory.state = 'harvest';
+            creep.say("Pickup");
+            creep.memory.state = 'pickup';
         }
         else {
             var storages = creep.room.find(FIND_MY_STRUCTURES, {
                 filter: function(s) {
-                    return (s.structureType == STRUCTURE_EXTENSION
-                        ||  s.structureType == STRUCTURE_STORAGE)
+                    return s.structureType == STRUCTURE_EXTENSION
                         && s.energy < s.energyCapacity;
                 }
             }).sort(function(a, b) {

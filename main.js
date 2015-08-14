@@ -1,37 +1,29 @@
-var builder = require('builder');
-var fixer = require('fixer');
-var guard = require('guard');
+var builder   = require('builder');
+var courier   = require('courier');
+var fixer     = require('fixer');
+var guard     = require('guard');
 var harvester = require('harvester');
-var healer = require('healer');
-var keeper = require('keeper');
-var spawner = require('spawner');
+var healer    = require('healer');
+var keeper    = require('keeper');
+var spawner   = require('spawner');
 
 for (var name in Game.creeps) {
 	var creep = Game.creeps[name];
 
-	if (creep.memory.role == 'harvester') {
-		harvester(creep);
-	}
-
-	if (creep.memory.role == 'builder') {
+	if (creep.memory.role == 'builder')
 	    builder(creep);
-	}
-
-    if (creep.memory.role == 'fixer') {
+    if (creep.memory.role == 'courier')
+        courier(creep);
+    if (creep.memory.role == 'fixer')
         fixer(creep);
-    }
-
-	if (creep.memory.role == 'healer') {
+	if (creep.memory.role == 'harvester')
+		harvester(creep);
+	if (creep.memory.role == 'healer')
         healer(creep);
-	}
-
-    if (creep.memory.role == 'keeper') {
+    if (creep.memory.role == 'keeper')
         keeper(creep);
-    }
-
-	if (creep.memory.role == 'guard') {
+	if (creep.memory.role == 'guard')
 	    guard(creep);
-	}
 }
 
 for (var name in Game.spawns) {

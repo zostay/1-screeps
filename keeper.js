@@ -45,7 +45,7 @@ module.exports = function (creep) {
                 creep.memory.rampartTarget = null;
         }
         else {
-            
+
             // emergency
             if (minHits < 700) {
                 for (var i in ramparts) {

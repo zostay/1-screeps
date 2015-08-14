@@ -54,9 +54,11 @@ function spawnFromQueue(spawn, creeps) {
     }
 }
 
-var WORKER_BODY     = [ MOVE, WORK, CARRY, MOVE ];
-var BIG_WORKER_BODY = [ MOVE, WORK, CARRY, MOVE, WORK, CARRY, MOVE ];
-var GUARD_BODY      = [ MOVE, TOUGH, TOUGH, MOVE, ATTACK, MOVE ];
+var COURIER_BODY     = [ MOVE, CARRY, CARRY, MOVE ];
+var BIG_COURIER_BODY = [ MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE ];
+var WORKER_BODY      = [ MOVE, WORK, CARRY, MOVE ];
+var BIG_WORKER_BODY  = [ MOVE, WORK, CARRY, MOVE, WORK, CARRY, MOVE ];
+var GUARD_BODY       = [ MOVE, TOUGH, TOUGH, MOVE, ATTACK, MOVE ];
 
 module.exports = function (spawn) {
     var allCreeps = spawn.room.find(FIND_MY_CREEPS);
@@ -77,7 +79,9 @@ module.exports = function (spawn) {
         totalEnergy += storages[i].energy;
     }
 
-    var worker = totalEnergy > 450 ? BIG_WORKER_BODY : WORKER_BODY;
+    var worker  = totalEnergy > 450 ? BIG_WORKER_BODY  : WORKER_BODY;
+    var courier = totalEnergy > 350 ? BIG_COURIER_BODY : COURIER_BODY;
+
     spawnCreepEvery(spawn, roleCreeps, 'harvester', LIFETIME / 4, 0, worker);
     checkCreepSupply(spawn, allCreeps, roleCreeps, 'harvester', 1, worker);
 
@@ -85,9 +89,20 @@ module.exports = function (spawn) {
     var min = targets.length < 1 ? 1 : targets.length;
     checkCreepSupply(spawn, allCreeps, roleCreeps, 'guard', min, GUARD_BODY);
 
-    spawnCreepEvery(spawn, roleCreeps, 'fixer', LIFETIME, 100, worker);
-    spawnCreepEvery(spawn, roleCreeps, 'keeper', LIFETIME, 300, worker);
+    spawnCreepEvery(spawn, roleCreeps, 'fixer',   LIFETIME,     100, worker);
+    spawnCreepEvery(spawn, roleCreeps, 'keeper',  LIFETIME,     300, worker);
     spawnCreepEvery(spawn, roleCreeps, 'builder', LIFETIME / 3, 200, worker);
+
+    var storages = creep.room.find(FIND_MY_STRUCTURES, {
+        filter: function(s) {
+            return s.structureType == STRUCTURE_STORAGE;
+        }
+    });
+    
+    if (storages.length) {
+        checkCreepSupply(spawn, allCreeps, roleCreeps, 'guard', 1, GUARD_BODY);
+        spawnCreepEvery(spawn, roleCreeps, 'courier', LIFETIME, 400, courier);
+    }
 
     spawnFromQueue(spawn, roleCreeps);
 }
