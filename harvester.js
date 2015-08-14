@@ -26,13 +26,17 @@ module.exports = function (creep) {
         else {
             var storages = creep.room.find(FIND_MY_STRUCTURES, {
                 filter: function(s) {
-                    return (s.structureType == STRUCTURE_EXTENSION
-                        ||  s.structureType == STRUCTURE_STORAGE)
-                        && s.energy < s.energyCapacity;
+                    return (
+                        s.structureType == STRUCTURE_EXTENSION
+                        && s.energy < s.energyCapacity
+                    ) || (
+                        s.structureType == STRUCTURE_STORAGE
+                        && s.store < s.storeCapacity
+                    );
                 }
             }).sort(function(a, b) {
-                var needA = a.energyCapacity - a.energy;
-                var needB = b.energyCapacity - b.energy;
+                var needA = (a.energyCapacity - a.energy) || (a.storeCapacity - a.store);
+                var needB = (b.energyCapacity - b.energy) || (a.storeCapacity - a.store);
                 return needB - needA;
             });
 
