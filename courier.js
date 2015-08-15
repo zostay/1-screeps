@@ -10,7 +10,7 @@ module.exports = function (creep) {
 
             if (storages.length) {
         		creep.moveTo(storages[0]);
-                storages[0].transferEnergy(storages[0]);
+                storages[0].transferEnergy(creep);
             }
     	}
         else {
