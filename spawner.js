@@ -103,7 +103,7 @@ module.exports = function (spawn) {
     });
 
     if (storages.length) {
-        checkCreepSupply(spawn, allCreeps, roleCreeps, 'guard', 1, GUARD_BODY);
+        checkCreepSupply(spawn, allCreeps, roleCreeps, 'courier', 1, courier);
         spawnCreepEvery(spawn, roleCreeps, 'courier', LIFETIME, 400, courier);
     }
 
