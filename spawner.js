@@ -3,13 +3,16 @@ function findNameByRole(spawn, role) {
     var creeps = Game.creeps;
     var roomName = spawn.room ? spawn.room.name : 'sim';
     while (creeps[ spawn.room.name + 'X' + role + 'X' + index ]) index++;
-    return spawn.room.name + 'X' + role + 'X' + index;
+    return {
+        name: spawn.room.name + 'X' + role + 'X' + index,
+        index: index
+    };
 }
 
 function spawnByRole(spawn, creeps, role, parts) {
-    var name = findNameByRole(spawn, role);
-    if (spawn.createCreep(parts, name, { role: role }) == name) {
-        console.log("Spawning " + role + ": " + name);
+    var opt = findNameByRole(spawn, role);
+    if (spawn.createCreep(parts, opt.name, { role: role, index: opt.index }) == opt.name) {
+        console.log("Spawning " + role + ": " + opt.name);
         return true;
     }
     else {

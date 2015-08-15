@@ -2,36 +2,16 @@ module.exports = function (creep) {
     creep.memory.state = creep.memory.state || 'harvest';
 
     if (creep.memory.state == 'harvest') {
-        if (creep.memory.pullFrom) {
-            var pullFrom = Game.getObjectById(creep.memory.pullFrom);
+		var sources = creep.room.find(FIND_SOURCES);
+        var mySource = sources[creep.memory.index % sources.length];
 
-        	if (creep.carry.energy < creep.carryCapacity) {
-        		creep.moveTo(pullFrom);
-        		creep.harvest(pullFrom);
-        	}
-            else {
-                creep.say("Deliver");
-                creep.memory.state = 'deliver';
-                creep.memory.pullFrom = null;
-            }
-        }
+    	if (creep.carry.energy < creep.carryCapacity) {
+    		creep.moveTo(mySource);
+    		creep.harvest(mySource);
+    	}
         else {
-            if (!Memory.sources) Memory.sources = [];
-
-    		var sources = creep.room.find(FIND_SOURCES);
-            var minPuller, minPulled = 1000;
-            for (var i in sources) {
-                if (!Memory.sources[ sources[i].id ])
-                    Memory.sources[ sources[i].id ] = { pullers: 0 };
-
-                if (Memory.sources[ sources[i].id ].pullers < minPulled) {
-                    minPulled = Memory.sources[ sources[i].id ].pullers;
-                    minPuller = sources[i].id;
-                }
-            }
-
-            Memory.sources[ minPuller ].pullers++;
-            creep.memory.pullFrom = minPuller;
+            creep.say("Deliver");
+            creep.memory.state = 'deliver';
         }
     }
 	else {
