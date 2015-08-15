@@ -1,5 +1,5 @@
 module.exports = {
-    gather: function(creep) {
+    gather: function(creep, returnTo, returnSay) {
         if (creep.memory.gatherFrom) {
             var gatherFrom = Game.getObjectById(creep.memory.gatherFrom);
             creep.moveTo(gatherFrom);
@@ -24,9 +24,9 @@ module.exports = {
             }
 
             if (creep.carry.energy == creep.carryCapacity) {
-                creep.say('Build');
+                creep.say(returnSay);
                 creep.memory.gatherFrom = null;
-                creep.memory.state = 'build';
+                creep.memory.state = returnTo;
             }
         }
         else {

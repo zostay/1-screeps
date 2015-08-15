@@ -26,6 +26,6 @@ module.exports = function (creep) {
         }
     }
     else {
-        util.gather(creep);
+        util.gather(creep, 'build', 'Build');
     }
 }

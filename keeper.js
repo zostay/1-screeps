@@ -74,6 +74,6 @@ module.exports = function (creep) {
         }
     }
     else {
-        util.gather(creep);
+        util.gather(creep, 'repair', 'Keep');
     }
 }
