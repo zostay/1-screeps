@@ -2,21 +2,31 @@ module.exports = function (creep) {
     creep.memory.state = creep.memory.state || 'harvest';
 
     if (creep.memory.state == 'harvest') {
-    	if (creep.carry.energy < creep.carryCapacity) {
-    		var sources = creep.room.find(FIND_SOURCES, {
-                filter: function(s) {
-                    return s.energy > 100;
-                }
-            });
+        if (creep.memory.pullFrom) {
+            var pullFrom = Game.getObjectById(creep.memory.pullFrom);
 
-            if (sources.length) {
-        		creep.moveTo(sources[0]);
-        		creep.harvest(sources[0]);
+        	if (creep.carry.energy < creep.carryCapacity) {
+        		creep.moveTo(pullFrom);
+        		creep.harvest(pullFrom);
+        	}
+            else {
+                creep.say("Deliver");
+                creep.memory.state = 'deliver';
+                creep.memory.pullFrom = null;
             }
-    	}
+        }
         else {
-            creep.say("Deliver");
-            creep.memory.state = 'deliver';
+    		var sources = creep.room.find(FIND_SOURCES);
+            var minPuller, minPulled = 1000;
+            for (var i in sources) {
+                if (Memory.sources[ sources[i].id ].pullers < minPulled) {
+                    minPulled = Memory.sources[ sources[i].id ].pullers;
+                    minPuller = sources[i];
+                }
+            }
+
+            Memory.sources[ minPuller ].pullers++;
+            creep.memory.pullFrom(minPuller);
         }
     }
 	else {
