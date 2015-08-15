@@ -23,10 +23,10 @@ module.exports = function (creep) {
             for (var i in sources) {
                 if (!Memory.sources[ sources[i].id ])
                     Memory.sources[ sources[i].id ] = { pullers: 0 };
-                    
+
                 if (Memory.sources[ sources[i].id ].pullers < minPulled) {
                     minPulled = Memory.sources[ sources[i].id ].pullers;
-                    minPuller = sources[i];
+                    minPuller = sources[i].id;
                 }
             }
 
