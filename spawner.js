@@ -85,7 +85,7 @@ module.exports = function (spawn) {
     var worker  = totalEnergy > 450 ? BIG_WORKER_BODY  : WORKER_BODY;
     var courier = totalEnergy > 350 ? BIG_COURIER_BODY : COURIER_BODY;
 
-    spawnCreepEvery(spawn, roleCreeps, 'harvester', LIFETIME / 8, 0, worker);
+    spawnCreepEvery(spawn, roleCreeps, 'harvester', Math.round(LIFETIME / 8), 0, worker);
     checkCreepSupply(spawn, allCreeps, roleCreeps, 'harvester', 1, worker);
 
     // var targets = spawn.room.find(FIND_HOSTILE_CREEPS);
