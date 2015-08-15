@@ -31,8 +31,8 @@ module.exports = function (creep) {
                 }
             })
             storages.sort(function(a, b) {
-                var needA = s.energyCapacity - s.energy;
-                var needB = s.energyCapacity - s.energy;
+                var needA = a.energyCapacity - a.energy;
+                var needB = b.energyCapacity - b.energy;
                 return needB - needA;
             });
 
