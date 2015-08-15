@@ -16,9 +16,14 @@ module.exports = function (creep) {
             }
         }
         else {
+            if (!Memory.sources) Memory.sources = [];
+
     		var sources = creep.room.find(FIND_SOURCES);
             var minPuller, minPulled = 1000;
             for (var i in sources) {
+                if (!Memory.sources[ sources[i].id ])
+                    Memory.sources[ sources[i].id ] = { pullers: 0 };
+                    
                 if (Memory.sources[ sources[i].id ].pullers < minPulled) {
                     minPulled = Memory.sources[ sources[i].id ].pullers;
                     minPuller = sources[i];
