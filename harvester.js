@@ -1,5 +1,6 @@
 module.exports = function (creep) {
     creep.memory.state = creep.memory.state || 'harvest';
+
     if (creep.memory.state == 'harvest') {
     	if (creep.carry.energy < creep.carryCapacity) {
     		var sources = creep.room.find(FIND_SOURCES, {
