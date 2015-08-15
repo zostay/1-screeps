@@ -31,7 +31,7 @@ module.exports = function (creep) {
             }
 
             Memory.sources[ minPuller ].pullers++;
-            creep.memory.pullFrom(minPuller);
+            creep.memory.pullFrom = minPuller;
         }
     }
 	else {
