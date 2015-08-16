@@ -7,6 +7,12 @@ var healer    = require('healer');
 var keeper    = require('keeper');
 var spawner   = require('spawner');
 
+var Chassis = require('Chassis');
+
+var workerChassis  = new Chassis('Worker',  [ WORK,  CARRY ]);
+var courierChassis = new Chassis('Courier', [ CARRY, CARRY ]);
+var soldierChassis = new Chassis('Soldier', [ TOUGH, ATTACK ]);
+
 for (var name in Game.creeps) {
 	var creep = Game.creeps[name];
 
