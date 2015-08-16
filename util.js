@@ -55,4 +55,14 @@ module.exports = {
             }
         }
     },
+
+    crowDistance: function(pa, pb) {
+        if (pa.pos) pa = pa.pos;
+        if (pb.pos) pb = pb.pos;
+
+        var a = pa.x - pb.x
+        var b = pa.y - pb.y;
+
+        return Math.sqrt(a * a + b * b);
+    }
 };
