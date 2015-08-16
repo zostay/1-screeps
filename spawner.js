@@ -110,7 +110,7 @@ module.exports = function (spawn) {
 
     if (storages.length) {
         checkCreepSupply(spawn, allCreeps, roleCreeps, 'courier', 1, courier);
-        spawnCreepEvery(spawn, roleCreeps, 'courier', LIFETIME, 400, courier);
+        spawnCreepEvery(spawn, roleCreeps, 'courier', LIFETIME / 2, 400, courier);
     }
 
     spawnFromQueue(spawn, roleCreeps);
