@@ -46,7 +46,7 @@ Chassis.prototype.spawnCreep = function(spawner, maxEnergy, name, memory) {
     }
 
     var r = spawner.createCreep(body, name, memory);
-    
+
     if (r == name) {
         return body;
     }
@@ -55,4 +55,4 @@ Chassis.prototype.spawnCreep = function(spawner, maxEnergy, name, memory) {
     }
 }
 
-module.export = Chassis;
+module.exports = Chassis;
