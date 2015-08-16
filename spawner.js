@@ -93,8 +93,8 @@ module.exports = function (spawn) {
     // checkCreepSupply(spawn, allCreeps, roleCreeps, 'guard', min, GUARD_BODY);
 
     spawnCreepEvery(spawn, roleCreeps, 'fixer',   LIFETIME, 100, worker);
-    spawnCreepEvery(spawn, roleCreeps, 'keeper',  LIFETIME, 300, worker);
-    spawnCreepEvery(spawn, roleCreeps, 'builder', LIFETIME, 200, worker);
+    spawnCreepEvery(spawn, roleCreeps, 'keeper',  LIFETIME / 4, 300, worker);
+    spawnCreepEvery(spawn, roleCreeps, 'builder', LIFETIME / 2, 200, worker);
 
     var storages = spawn.room.find(FIND_MY_STRUCTURES, {
         filter: function(s) {
