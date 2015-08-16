@@ -39,7 +39,7 @@ module.exports = function (creep) {
             storages.sort(function(a, b) {
                 var needA = a.energyCapacity - a.energy;
                 var needB = b.energyCapacity - b.energy;
-                return needB - needA || distance[b.id] - distance[a.id];
+                return needB - needA || distance[a.id] - distance[b.id];
             });
 
             if (Game.spawns.Home.energy <= 250) {
