@@ -63,7 +63,7 @@ module.exports = function (creep) {
                             || c.memory.role == 'fixer'
                             || c.memory.role == 'keeper'
                         )
-                        && c.carry.energy < c.carryCapacity;
+                        && c.carry.energy < c.carryCapacity
                         && c.carry.energy > 5; // they aren't gathering yet
                     }
                 });
