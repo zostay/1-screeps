@@ -11,7 +11,7 @@ module.exports = function (creep) {
             }
         });
 
-        var minHits = 1000000;
+        var minHits = 100000000;
         for (var i in ramparts) {
             minHits = Math.min(ramparts[i].hits, minHits);
         }
