@@ -50,7 +50,7 @@ module.exports = function (creep) {
                 creep.moveTo(storages[0]);
                 creep.transferEnergy(storages[0]);
             }
-            else if (Game.spawns.Home.energy <= Game.spawns.Home.energyCapacity) {
+            else if (Game.spawns.Home.energy < Game.spawns.Home.energyCapacity) {
         		creep.moveTo(Game.spawns.Home);
         		creep.transferEnergy(Game.spawns.Home)
             }
