@@ -60,7 +60,6 @@ module.exports = function (creep) {
                         distance[ c.id ] = util.crowDistance(creep.pos, c.pos);
                         return (
                             c.memory.role == 'builder'
-                            || c.memory.role == 'fixer'
                             || c.memory.role == 'keeper'
                         )
                         && c.carry.energy < c.carryCapacity
