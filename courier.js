@@ -69,7 +69,7 @@ module.exports = function (creep) {
                 creeps.sort(function(a, b) {
                     var needA = a.carryCapacity - a.carry.energy;
                     var needB = b.carryCapacity - b.carry.energy;
-                    return needB - needA || distance[a.id] - distance[b.id];
+                    return distance[a.id] - distance[b.id] || needB - needA;
                 });
 
                 if (creeps.length) {
