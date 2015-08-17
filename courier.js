@@ -50,9 +50,33 @@ module.exports = function (creep) {
                 creep.moveTo(storages[0]);
                 creep.transferEnergy(storages[0]);
             }
-            else {
+            else if (Game.spawns.Home.energy <= Game.spawns.Home.energyCapacity) {
         		creep.moveTo(Game.spawns.Home);
         		creep.transferEnergy(Game.spawns.Home)
+            }
+            else {
+                var creeps = creep.room.find(FIND_MY_CREEPS, {
+                    filter: function (c) {
+                        distance[ c.id ] = util.crowDistance(creep.pos, c.pos);
+                        return (
+                            c.memory.role == 'builder'
+                            || c.memory.role == 'fixer'
+                            || c.memory.role == 'keeper'
+                        )
+                        && c.carry.energy < c.carryCapacity;
+                        && c.carry.energy > 5; // they aren't gathering yet
+                    }
+                });
+                creeps.sort(function(a, b) {
+                    var needA = a.carryCapacity - a.carry.energy;
+                    var needB = b.carryCapacity - b.carry.energy;
+                    return needB - needA || distance[a.id] - distance[b.id];
+                });
+
+                if (creeps.length) {
+                    creep.moveTo(creeps[0]);
+                    creep.transferEnergy(creeps[0]);
+                }
             }
         }
 	}
