@@ -1,30 +1,14 @@
 var util = require('util');
 
 module.exports = function (creep) {
-    creep.memory.state = creep.memory.state || 'pickup';
-    if (creep.memory.state == 'pickup') {
+    creep.memory.state = creep.memory.state || 'gather';
+    if (creep.memory.state == 'gather') {
         util.gather(creep, 'deliver', 'Deliver');
-    	// if (creep.carry.energy < creep.carryCapacity) {
-    	// 	var storages = creep.room.find(FIND_MY_STRUCTURES, {
-        //         filter: function(s) {
-        //             return s.structureType == STRUCTURE_STORAGE;
-        //         }
-        //     });
-        //
-        //     if (storages.length) {
-        // 		creep.moveTo(storages[0]);
-        //         storages[0].transferEnergy(creep);
-        //     }
-    	// }
-        // else {
-        //     creep.say("Deliver");
-        //     creep.memory.state = 'deliver';
-        // }
     }
 	else {
         if (creep.carry.energy == 0) {
-            creep.say("Pickup");
-            creep.memory.state = 'pickup';
+            creep.say("Gather");
+            creep.memory.state = 'gather';
         }
         else {
             var distance = [];
