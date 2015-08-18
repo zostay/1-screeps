@@ -57,9 +57,9 @@ function spawnFromQueue(spawn, creeps) {
     }
 }
 
-var COURIER_BODY        = [ MOVE, CARRY, CARRY, MOVE ];
-var BIG_COURIER_BODY    = [ MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE ];
-var BIGGER_COURIER_BODY = [ MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE ];
+var TANKER_BODY         = [ MOVE, CARRY, CARRY, MOVE ];
+var BIG_TANKER_BODY     = [ MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE ];
+var BIGGER_TANKER_BODY  = [ MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE ];
 var WORKER_BODY         = [ MOVE, WORK, CARRY, MOVE ];
 var BIG_WORKER_BODY     = [ MOVE, WORK, CARRY, MOVE, WORK, CARRY, MOVE ];
 var BIGGER_WORKER_BODY  = [ MOVE, WORK, CARRY, MOVE, WORK, CARRY, MOVE, WORK, CARRY, MOVE ];
@@ -87,9 +87,9 @@ module.exports = function (mon, spawn) {
     var worker  = totalEnergy > 750 ? BIGGER_WORKER_BODY
                 : totalEnergy > 450 ? BIG_WORKER_BODY
                 :                     WORKER_BODY;
-    var courier = totalEnergy > 500 ? BIGGER_COURIER_BODY
-                : totalEnergy > 350 ? BIG_COURIER_BODY
-                :                     COURIER_BODY;
+    var tanker  = totalEnergy > 500 ? BIGGER_TANKER_BODY
+                : totalEnergy > 350 ? BIG_TANKER_BODY
+                :                     TANKER_BODY;
 
     spawnCreepEvery(spawn, roleCreeps, 'harvester', Math.round(LIFETIME / 6), 0, worker);
     checkCreepSupply(spawn, allCreeps, roleCreeps, 'harvester', 1, worker);
@@ -109,8 +109,8 @@ module.exports = function (mon, spawn) {
     });
 
     if (storages.length) {
-        checkCreepSupply(spawn, allCreeps, roleCreeps, 'courier', 1, courier);
-        spawnCreepEvery(spawn, roleCreeps, 'courier', LIFETIME / 2, 400, courier);
+        checkCreepSupply(spawn, allCreeps, roleCreeps, 'tanker', 1, tanker);
+        spawnCreepEvery(spawn, roleCreeps, 'tanker', LIFETIME / 2, 400, tanker);
     }
 
     spawnFromQueue(spawn, roleCreeps);
