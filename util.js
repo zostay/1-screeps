@@ -34,7 +34,7 @@ util.gather = function(mon, creep, returnTo, returnSay) {
     }
     else {
         var droppedEnergy = mon.findDroppedEnergy(creep.room).filter(function(e) {
-            return util.crowDistance(creep, e) < 5;
+            return util.crowDistance(creep, e) < 10;
         });
         var storages = mon.findStorages(creep.room);
 
