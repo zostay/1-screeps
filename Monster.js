@@ -103,6 +103,12 @@ Monster.prototype.findRamparts = function(room) {
     });
 }
 
+Monster.prototype.findDroppedEnergy = function(room) {
+    return this.cacheGetOrSet(room.id, 'findDroppedEnergy', function() {
+        return room.find(FIND_DROPPED_ENERGY);
+    });
+}
+
 Monster.prototype.run = function() {
     var builder   = require('builder');
     var fixer     = require('fixer');

@@ -14,6 +14,9 @@ module.exports = {
                     gatherFrom.transferEnergy(creep);
                 }
             }
+            else if (gatherFrom instanceof Energy) {
+                creep.pickup(gatherFrom);
+            }
             else {
                 if (gatherFrom.energy < 100) {
                     creep.memory.gatherFrom = null;
@@ -30,9 +33,15 @@ module.exports = {
             }
         }
         else {
+            var droppedEnergy = mon.findDroppedEnergy(creep.room).filter(function(e) {
+                return util.crowDistance(creep, e) < 5;
+            });
             var storages = mon.findStorages(creep.room);
 
-            if (storages.length) {
+            if (droppedEnergy.length) {
+                creep.memory.gatherFrom = droppedEnergy[0];
+            }
+            else if (storages.length) {
                 creep.memory.gatherFrom = storages[0].id;
             }
             else if (Game.spawns.Home.energy >= creep.carryCapacity / 2) {
