@@ -1,5 +1,5 @@
 module.exports = {
-    gather: function(creep, returnTo, returnSay) {
+    gather: function(mon, creep, returnTo, returnSay) {
         if (creep.memory.gatherFrom) {
             var gatherFrom = Game.getObjectById(creep.memory.gatherFrom);
             creep.moveTo(gatherFrom);
@@ -30,11 +30,7 @@ module.exports = {
             }
         }
         else {
-            var storages = creep.room.find(FIND_MY_STRUCTURES, {
-                filter: function(s) {
-                    return s.structureType == STRUCTURE_STORAGE;
-                }
-            });
+            var storages = mon.findStorages(creep.room);
 
             if (storages.length) {
                 creep.memory.gatherFrom = storages[0].id;

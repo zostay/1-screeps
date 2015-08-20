@@ -1,4 +1,4 @@
-module.exports = function (creep) {
+module.exports = function (mon, creep) {
     var targets = creep.room.find(FIND_HOSTILE_CREEPS);
     if(targets.length) {
 	    creep.moveTo(targets[0]);

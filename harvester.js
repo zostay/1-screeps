@@ -1,4 +1,4 @@
-module.exports = function (creep) {
+module.exports = function (mon, creep) {
     creep.memory.state = creep.memory.state || 'harvest';
 
     if (creep.memory.state == 'harvest') {

@@ -1,6 +1,6 @@
 var util = require('util');
 
-module.exports = function (creep) {
+module.exports = function (mon, creep) {
     creep.memory.state = creep.memory.state || 'repair';
 
     if (creep.memory.state == 'repair') {
@@ -74,6 +74,6 @@ module.exports = function (creep) {
         }
     }
     else {
-        util.gather(creep, 'repair', 'Keep');
+        util.gather(mon, creep, 'repair', 'Keep');
     }
 }
