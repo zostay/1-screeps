@@ -8,7 +8,7 @@ module.exports = function (mon, creep) {
             creep.memory.state = 'gather';
         }
         else {
-    		var fixables = mon.findRoads(creep.room);
+    		var fixables = mon.findRoadsNeedingRepair(creep.room);
 
     		if (fixables.length) {
     			creep.moveTo(fixables[0]);

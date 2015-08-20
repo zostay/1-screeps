@@ -80,7 +80,7 @@ Monster.prototype.findConstructionSites = function(room) {
     });
 }
 
-Monster.prototype.findRoads = function(room) {
+Monster.prototype.findRoadsNeedingRepair = function(room) {
     return this.cacheGetOrSet(room.id, 'findRoads', function() {
         return room.find(FIND_STRUCTURES, {
             filter: function(s) {
