@@ -54,9 +54,10 @@ module.exports = {
         if (pa.pos) pa = pa.pos;
         if (pb.pos) pb = pb.pos;
 
-        var a = pa.x - pb.x
-        var b = pa.y - pb.y;
+        var a = Math.abs(pa.x - pb.x);
+        var b = Math.abs(pa.y - pb.y);
 
-        return Math.sqrt(a * a + b * b);
-    }
+        return Math.max(a, b);
+    },
+
 };
