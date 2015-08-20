@@ -53,6 +53,17 @@ Monster.prototype.findConstructionSites = function(room) {
     });
 }
 
+Monster.prototype.findRoads = function(room) {
+    return this.cacheGetOrSet(room.id, 'findRoads', function() {
+        return room.find(FIND_STRUCTURES, {
+            filter: function(s) {
+                return s.structureType == STRUCTURE_ROAD
+                    && s.hits < s.hitsMax;
+            }
+        });
+    });
+}
+
 Monster.prototype.run = function() {
     var builder   = require('builder');
     var fixer     = require('fixer');

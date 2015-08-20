@@ -8,12 +8,7 @@ module.exports = function (mon, creep) {
             creep.memory.state = 'gather';
         }
         else {
-    		var fixables = creep.room.find(FIND_STRUCTURES, {
-                filter: function(s) {
-                    return s.structureType == STRUCTURE_ROAD
-                        && s.hits < s.hitsMax;
-                }
-            });
+    		var fixables = mon.findRoads(creep.room);
 
     		if (fixables.length) {
     			creep.moveTo(fixables[0]);
