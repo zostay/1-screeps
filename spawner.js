@@ -94,7 +94,7 @@ module.exports = function (mon, spawn) {
     spawnCreepEvery(spawn, roleCreeps, 'harvester', Math.round(LIFETIME / 6), 0, worker);
     checkCreepSupply(spawn, allCreeps, roleCreeps, 'harvester', 1, worker);
 
-    // var targets = spawn.room.find(FIND_HOSTILE_CREEPS);
+    // var targets = mon.findHostileCreeps(spawn.room);
     // var min = targets.length < 1 ? 1 : targets.length;
     // checkCreepSupply(spawn, allCreeps, roleCreeps, 'guard', min, GUARD_BODY);
 
@@ -102,11 +102,7 @@ module.exports = function (mon, spawn) {
     spawnCreepEvery(spawn, roleCreeps, 'keeper',  LIFETIME / 2, 300, worker);
     spawnCreepEvery(spawn, roleCreeps, 'builder', LIFETIME / 2, 200, worker);
 
-    var storages = spawn.room.find(FIND_MY_STRUCTURES, {
-        filter: function(s) {
-            return s.structureType == STRUCTURE_STORAGE;
-        }
-    });
+    var storages = mon.findStorages(spawn.room)
 
     if (storages.length) {
         checkCreepSupply(spawn, allCreeps, roleCreeps, 'tanker', 1, tanker);

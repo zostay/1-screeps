@@ -64,6 +64,28 @@ Monster.prototype.findRoads = function(room) {
     });
 }
 
+Monster.prototype.findHostileCreeps = function(room) {
+    return this.cacheGetOrSet(room.id, 'findHostileCreeps', function() {
+        return room.find(FIND_HOSTILE_CREEPS);
+    });
+}
+
+Monster.prototype.findStructuresNeedingEnergy = function(room) {
+    return this.cacheGetOrSet(room.id, 'findStructuresNeedingEnergy', function() {
+        return room.find(FIND_MY_STRUCTURES, {
+            filter: function(s) {
+                return (
+                    s.structureType == STRUCTURE_EXTENSION
+                    && s.energy < s.energyCapacity
+                ) || (
+                    s.structureType == STRUCTURE_STORAGE
+                    && s.store.energy < s.storeCapacity
+                );
+            }
+        });
+    });
+}
+
 Monster.prototype.run = function() {
     var builder   = require('builder');
     var fixer     = require('fixer');
