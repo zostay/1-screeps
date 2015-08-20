@@ -39,7 +39,7 @@ util.gather = function(mon, creep, returnTo, returnSay) {
         var storages = mon.findStorages(creep.room);
 
         if (droppedEnergy.length) {
-            creep.memory.gatherFrom = droppedEnergy[0];
+            creep.memory.gatherFrom = droppedEnergy[0].id;
         }
         else if (storages.length) {
             creep.memory.gatherFrom = storages[0].id;
