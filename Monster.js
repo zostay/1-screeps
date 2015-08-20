@@ -32,7 +32,7 @@ Monster.prototype.cacheGetOrSet = function(id, key, builder) {
 }
 
 Monster.prototype.findStorages = function(room) {
-    return this.cacheSetOrGet(room.id, 'findStorages', function() {
+    return this.cacheGetOrSet(room.id, 'findStorages', function() {
         return room.find(FIND_MY_STRUCTURES, {
             filter: function(s) {
                 return s.structureType == STRUCTURE_STORAGE;
@@ -42,7 +42,7 @@ Monster.prototype.findStorages = function(room) {
 }
 
 Monster.prototype.findSources = function(room) {
-    return this.cacheSetOrGet(room.id, 'findSources', function() {
+    return this.cacheGetOrSet(room.id, 'findSources', function() {
         return creep.room.find(FIND_SOURCES);
     });
 }
