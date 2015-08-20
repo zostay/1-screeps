@@ -38,7 +38,7 @@ Monster.prototype.findStorages = function(room) {
                 return s.structureType == STRUCTURE_STORAGE;
             }
         });
-    }
+    });
 }
 
 Monster.prototype.run = function() {
