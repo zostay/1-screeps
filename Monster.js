@@ -43,7 +43,7 @@ Monster.prototype.findStorages = function(room) {
 
 Monster.prototype.findSources = function(room) {
     return this.cacheGetOrSet(room.id, 'findSources', function() {
-        return creep.room.find(FIND_SOURCES);
+        return room.find(FIND_SOURCES);
     });
 }
 
