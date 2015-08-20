@@ -47,6 +47,12 @@ Monster.prototype.findSources = function(room) {
     });
 }
 
+Monster.prototype.findConstructionSites = function(room) {
+    return this.cacheGetOrSet(room.id, 'findConstructionSites', function() {
+        return room.find(FIND_CONSTRUCTION_SITES);
+    });
+}
+
 Monster.prototype.run = function() {
     var builder   = require('builder');
     var fixer     = require('fixer');

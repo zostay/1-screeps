@@ -8,7 +8,7 @@ module.exports = function (mon, creep) {
             creep.memory.state = 'gather';
         }
         else {
-    		var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+    		var targets = mon.findConstructionSites(creep.room);
             if (creep.room.controller.level < 2) {
                 creep.moveTo(creep.room.controller);
                 creep.upgradeController(creep.room.controller);
