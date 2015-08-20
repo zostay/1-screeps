@@ -2,7 +2,7 @@ module.exports = function (mon, creep) {
     creep.memory.state = creep.memory.state || 'harvest';
 
     if (creep.memory.state == 'harvest') {
-		var sources = creep.room.find(FIND_SOURCES);
+		var sources = mon.findSources(creep.room);
         var mySource = sources[creep.memory.index % sources.length];
 
     	if (creep.carry.energy < creep.carryCapacity) {

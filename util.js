@@ -39,10 +39,8 @@ module.exports = {
                 creep.memory.gatherFrom = Game.spawns.Home.id;
             }
             else {
-                var sources = creep.room.find(FIND_SOURCES, {
-                    filter: function(s) {
-                        return s.energy > 100;
-                    }
+                var sources = mon.findSources(creep.room).filter(function(s) {
+                    return s.energy > 100;
                 });
 
                 if (sources.length) {
