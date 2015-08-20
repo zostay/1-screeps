@@ -92,6 +92,17 @@ Monster.prototype.findMyCreeps = function(room) {
     });
 }
 
+Monster.prototype.findRamparts = function(room) {
+    return this.cacheGetOrSet(room.id, 'findRamparts', function() {
+        return room.find(FIND_MY_STRUCTURES, {
+            filter: function(s) {
+                return s.structureType == STRUCTURE_RAMPART
+                    && s.hits < s.hitsMax;
+            }
+        });
+    });
+}
+
 Monster.prototype.run = function() {
     var builder   = require('builder');
     var fixer     = require('fixer');

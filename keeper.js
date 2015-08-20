@@ -4,12 +4,7 @@ module.exports = function (mon, creep) {
     creep.memory.state = creep.memory.state || 'repair';
 
     if (creep.memory.state == 'repair') {
-    	var ramparts = creep.room.find(FIND_MY_STRUCTURES, {
-            filter: function(s) {
-                return s.structureType == STRUCTURE_RAMPART
-                    && s.hits < s.hitsMax;
-            }
-        });
+    	var ramparts = mon.findRamparts(creep.room);
 
         var minHits = 100000000;
         for (var i in ramparts) {
