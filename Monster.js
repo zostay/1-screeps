@@ -3,6 +3,9 @@ var Chassis = require('Chassis');
 function Monster() {
     this.chassis = {};
     this.cache = {};
+
+    if (!Memory.longCache) Memory.longCache = {};
+
     return this;
 }
 Monster.prototype = new Object;
@@ -21,6 +24,20 @@ Monster.prototype.cacheSet = function(id, key, value) {
     this.cache[id][key] = value;
 }
 
+Monster.prototype.longCacheGet = function(id, key) {
+    if (!Memory.longCache[id]) return null;
+    return Memory.longCache[id][key].map(function(id) {
+        return Game.getObjectById(id);
+    });
+}
+
+Monster.prototype.longCacheSet = function(id, key, value) {
+    if (!Memory.longCache[id]) Memory.longCache[id] = {};
+    Memory.longCache[id][key] = value.map(function(obj) {
+        return obj.id;
+    });
+}
+
 Monster.prototype.cacheGetOrSet = function(id, key, builder) {
     var cached = this.cacheGet(id, key);
     if (cached) return cached;
@@ -28,6 +45,16 @@ Monster.prototype.cacheGetOrSet = function(id, key, builder) {
     cached = builder(id, key);
 
     this.cacheSet(id, key, cached);
+    return cached;
+}
+
+Monster.prototype.longCacheGetOrSet = function(id, key, builder) {
+    var cached = this.longCacheGet(id, key);
+    if (cached) return cached;
+
+    cached = builder(id, key);
+
+    this.longCacheSet(id, key, cached);
     return cached;
 }
 
@@ -42,7 +69,7 @@ Monster.prototype.findStorages = function(room) {
 }
 
 Monster.prototype.findSources = function(room) {
-    return this.cacheGetOrSet(room.id, 'findSources', function() {
+    return this.longCacheGetOrSet(room.id, 'findSources', function() {
         return room.find(FIND_SOURCES);
     });
 }
