@@ -55,19 +55,19 @@ Monster.prototype.run = function() {
     	var creep = Game.creeps[name];
 
     	if (creep.memory.role == 'builder')
-    	    builder(mon, creep);
+    	    builder(this, creep);
         if (creep.memory.role == 'fixer')
-            fixer(mon, creep);
+            fixer(this, creep);
     	if (creep.memory.role == 'guard')
-    	    guard(mon, creep);
+    	    guard(this, creep);
     	if (creep.memory.role == 'harvester')
-    		harvester(mon, creep);
+    		harvester(this, creep);
     	if (creep.memory.role == 'healer')
-            healer(mon, creep);
+            healer(this, creep);
         if (creep.memory.role == 'keeper')
-            keeper(mon, creep);
+            keeper(this, creep);
         if (creep.memory.role == 'tanker')
-            tanker(mon, creep);
+            tanker(this, creep);
     }
 
     for (var name in Game.spawns) {
