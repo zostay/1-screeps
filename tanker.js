@@ -40,8 +40,8 @@ module.exports = function (mon, creep) {
         		creep.transferEnergy(Game.spawns.Home)
             }
             else {
-                var creeps = creep.room.find(FIND_MY_CREEPS, {
-                    filter: function (c) {
+                var creeps = mon.findMyCreeps(creep.room).filter(
+                    function (c) {
                         distance[ c.id ] = util.crowDistance(creep.pos, c.pos);
                         return (
                             c.memory.role == 'builder'
@@ -50,7 +50,7 @@ module.exports = function (mon, creep) {
                         && c.carry.energy < c.carryCapacity
                         && c.carry.energy > 5; // they aren't gathering yet
                     }
-                });
+                );
                 creeps.sort(function(a, b) {
                     var needA = a.carryCapacity - a.carry.energy;
                     var needB = b.carryCapacity - b.carry.energy;

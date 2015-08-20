@@ -66,7 +66,7 @@ var BIGGER_WORKER_BODY  = [ MOVE, WORK, CARRY, MOVE, WORK, CARRY, MOVE, WORK, CA
 var GUARD_BODY          = [ MOVE, TOUGH, TOUGH, MOVE, ATTACK, MOVE ];
 
 module.exports = function (mon, spawn) {
-    var allCreeps = spawn.room.find(FIND_MY_CREEPS);
+    var allCreeps = mon.findMyCreeps(spawn.room);
     var roleCreeps = {};
     for (var i in allCreeps) {
         var thisCreep = allCreeps[i];

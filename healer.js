@@ -1,5 +1,5 @@
 module.exports = function (mon, creep) {
-    var myCreeps = creep.room.find(FIND_MY_CREEPS);
+    var myCreeps = mon.findMyCreeps(creep.room);
 	for (var i in myCreeps) {
 	    if (myCreeps[i].hits < myCreeps[i].hitsMax) {
 	        creep.moveTo(myCreeps[i]);

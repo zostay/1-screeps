@@ -86,6 +86,12 @@ Monster.prototype.findStructuresNeedingEnergy = function(room) {
     });
 }
 
+Monster.prototype.findMyCreeps = function(room) {
+    return this.cacheGetOrSet(room.id, 'findMyCreeps', function() {
+        return room.find(FIND_MY_CREEPS);
+    });
+}
+
 Monster.prototype.run = function() {
     var builder   = require('builder');
     var fixer     = require('fixer');
