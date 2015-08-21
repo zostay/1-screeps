@@ -12,7 +12,7 @@ module.exports = function (mon, creep) {
     deliver.setNextAction(harvest);
     deliver.setCreep(creep);
 
-    var action = harvest;
+    var action = harvest.jobIsDone() ? deliver : harvest;
 
     if (action.setSource) {
 		var sources = mon.findSources(creep.room);
