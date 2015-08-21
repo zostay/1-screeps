@@ -5,10 +5,12 @@ module.exports = function (mon, creep) {
     creep.memory.state = creep.memory.state || 'harvest';
 
     var harvest = new ActionHarvest(null);
-    var deliver = new ActionDeliver(null);
-
     harvest.setNextAction(deliver);
+    harvest.setCreep(creep);
+
+    var deliver = new ActionDeliver(null);
     deliver.setNextAction(harvest);
+    deliver.setCreep(creep);
 
     var action = harvest;
 

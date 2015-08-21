@@ -11,16 +11,16 @@ ActionHarvest.prototype.setDestination = function(dest) {
 }
 
 ActionHarvest.prototype.sayIt = function() {
-    creep.say('Deliver');
+    this.creep.say('Deliver');
 }
 
 ActionHarvest.prototype.jobIsDone = function() {
-    return creep.carry.energy == 0;
+    return this.creep.carry.energy == 0;
 }
 
 ActionHarvest.prototype.doIt = function() {
-    creep.moveTo(this.destination);
-    creep.transferEnergy(this.destination)
+    this.creep.moveTo(this.destination);
+    this.creep.transferEnergy(this.destination)
 }
 
 module.exports = ActionHarvest;

@@ -11,11 +11,11 @@ ActionHarvest.prototype.setSource = function(source) {
 }
 
 ActionHarvest.prototype.sayIt = function() {
-    creep.say('Harvest');
+    this.creep.say('Harvest');
 }
 
 ActionHarvest.prototype.jobIsDone = function() {
-    return creep.carry.energy == creep.carryCapacity;
+    return this.creep.carry.energy == this.creep.carryCapacity;
 }
 
 ActionHarvest.prototype.doIt = function() {
