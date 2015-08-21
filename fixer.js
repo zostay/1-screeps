@@ -1,28 +1,22 @@
-var util = require('util');
+var ActionRepair            = require('Action-Repair');
+var ActionGather            = require('Action-Gather');
+var ActionUpgradeController = require('Action-UpgradeController');
+var util                    = require('util');
 
 module.exports = function (mon, creep) {
-    creep.memory.state = creep.memory.state || 'repair';
-    if (creep.memory.state == 'repair') {
-        if (creep.carry.energy == 0) {
-            creep.say('Gather');
-            creep.memory.state = 'gather';
-        }
-        else {
-    		var fixables = mon.findRoadsNeedingRepair(creep.room);
+	var fixables = mon.findRoadsNeedingRepair(creep.room);
 
-    		if (fixables.length) {
-    			creep.moveTo(fixables[0]);
-    			creep.repair(fixables[0]);
-    		}
+    var repair  = new ActionRepair(null, fixables[0]);
+    var gather  = new ActionGather(null, util.bestSource(mon, creep));
+    var upgrade = new ActionUpgradeController(null);
 
-    		// might as well do something
-            else {
-                creep.moveTo(creep.room.controller);
-                creep.upgradeController(creep.room.controller);
-            }
-        }
-    }
-    else {
-        util.gather(mon, creep, 'repair', 'Repair');
-    }
+    repair.setNextAction(gather);
+    gather.setNextAction(repair);
+    upgrade.setNextAction(gather);
+
+    var action = creep.carry.energy == 0 ? gather
+               : fixables.length    == 0 ? upgrade
+               :                           repair;
+
+    action.work(creep);
 }

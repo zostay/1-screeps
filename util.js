@@ -1,4 +1,32 @@
 var util = {};
+util.bestSource = function(mon, creep) {
+    var droppedEnergy = mon.findDroppedEnergy(creep.room).filter(function(e) {
+        return util.crowDistance(creep, e) < 10;
+    });
+    var storages = mon.findStorages(creep.room);
+
+    if (droppedEnergy.length) {
+        return droppedEnergy[0].id;
+    }
+    else if (storages.length) {
+        return storages[0].id;
+    }
+    else if (Game.spawns.Home.energy >= creep.carryCapacity / 2) {
+        return Game.spawns.Home.id;
+    }
+    else {
+        var sources = mon.findSources(creep.room).filter(function(s) {
+            return s.energy > 100;
+        });
+
+        if (sources.length) {
+            return sources[0].id;
+        }
+    }
+
+    return null;
+}
+
 util.gather = function(mon, creep, returnTo, returnSay) {
     if (creep.memory.gatherFrom) {
         var gatherFrom = Game.getObjectById(creep.memory.gatherFrom);
@@ -33,29 +61,7 @@ util.gather = function(mon, creep, returnTo, returnSay) {
         }
     }
     else {
-        var droppedEnergy = mon.findDroppedEnergy(creep.room).filter(function(e) {
-            return util.crowDistance(creep, e) < 10;
-        });
-        var storages = mon.findStorages(creep.room);
-
-        if (droppedEnergy.length) {
-            creep.memory.gatherFrom = droppedEnergy[0].id;
-        }
-        else if (storages.length) {
-            creep.memory.gatherFrom = storages[0].id;
-        }
-        else if (Game.spawns.Home.energy >= creep.carryCapacity / 2) {
-            creep.memory.gatherFrom = Game.spawns.Home.id;
-        }
-        else {
-            var sources = mon.findSources(creep.room).filter(function(s) {
-                return s.energy > 100;
-            });
-
-            if (sources.length) {
-                creep.memory.gatherFrom = sources[0].id;
-            }
-        }
+        creep.memory.gatherFrom = util.bestSource(mon, creep);
     }
 }
 

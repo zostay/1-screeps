@@ -1,7 +1,6 @@
 function Chassis(name, parts) {
     this.name  = name;
     this.parts = parts;
-    return this;
 }
 Chassis.prototype = new Object;
 

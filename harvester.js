@@ -2,8 +2,6 @@ var ActionHarvest = require('Action-Harvest');
 var ActionDeliver = require('Action-Deliver');
 
 module.exports = function (mon, creep) {
-    creep.memory.state = creep.memory.state || 'harvest';
-
     var harvest = new ActionHarvest(null);
     harvest.setNextAction(deliver);
     harvest.setCreep(creep);

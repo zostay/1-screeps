@@ -1,6 +1,6 @@
 function Action() {
     this.creep      = null;
-    this.nextAction = null;
+    this.nextAction = null; // this probably goes away after action-refactor
 }
 Action.prototype = new Object;
 

@@ -5,9 +5,8 @@ function Monster() {
     this.cache = {};
 
     if (!Memory.longCache) Memory.longCache = {};
-
-    return this;
 }
+
 Monster.prototype = new Object;
 
 Monster.prototype.addChassis = function(name, body) {
