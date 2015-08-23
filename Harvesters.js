@@ -29,7 +29,7 @@ Harvesters.prototype.behaveOne = function (creep) {
 }
 
 Harvesters.prototype.harvest = function (creep) {
-	var sources = mon.findSources(creep.room);
+	var sources = this.mon.findSources(creep.room);
     var mySource = sources[creep.memory.index % sources.length];
 
 	if (creep.carry.energy < creep.carryCapacity) {
@@ -48,7 +48,7 @@ Harvesters.prototype.deliver = function (creep) {
         creep.memory.state = 'harvest';
     }
     else {
-        var storages = mon.findStructuresNeedingEnergy(creep.room);
+        var storages = this.mon.findStructuresNeedingEnergy(creep.room);
         storages.sort(function(a, b) {
             var needA = a.energyCapacity ? a.energyCapacity - a.energy : a.storeCapacity - a.store.energy;
             var needB = b.energyCapacity ? b.energyCapacity - b.energy : b.storeCapacity - b.store.energy;
