@@ -146,6 +146,9 @@ Monster.prototype.run = function() {
     var spawner   = require('spawner');
     var tanker    = require('tanker');
 
+    var Harvesters = require('Harvesters');
+    var harvesters = new Harvesters(this);
+
     for (var name in Game.creeps) {
     	var creep = Game.creeps[name];
 
@@ -156,7 +159,7 @@ Monster.prototype.run = function() {
     	if (creep.memory.role == 'guard')
     	    guard(this, creep);
     	if (creep.memory.role == 'harvester')
-    		harvester(this, creep);
+            harvesters.addCreep(creep);
     	if (creep.memory.role == 'healer')
             healer(this, creep);
         if (creep.memory.role == 'keeper')
@@ -164,6 +167,8 @@ Monster.prototype.run = function() {
         if (creep.memory.role == 'tanker')
             tanker(this, creep);
     }
+
+    harvesters.behave();
 
     for (var name in Game.spawns) {
         spawner(this, Game.spawns[name]);
