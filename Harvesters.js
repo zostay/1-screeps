@@ -11,8 +11,10 @@ function Harvesters(mon, creeps) {
 Harvesters.prototype = new Object;
 
 Harvesters.prototype.addCreep = function (creep) {
-    creep.memory.role  = 'harvester';
-    creep.memory.state = creep.memory.state || 'harvest';
+	var sources = this.mon.findSources(creep.room);
+    creep.memory.role   = 'harvester';
+    creep.memory.state  = creep.memory.state || 'harvest';
+    creep.memory.source = creep.memory.source || sources[creep.memory.index % sources.lenght].id;
     this.creeps.push(creep);
 }
 
@@ -29,8 +31,7 @@ Harvesters.prototype.behaveOne = function (creep) {
 }
 
 Harvesters.prototype.harvest = function (creep) {
-	var sources = this.mon.findSources(creep.room);
-    var mySource = sources[creep.memory.index % sources.length];
+    var mySource = Game.getObjectById(creep.memory.source);
 
 	if (creep.carry.energy < creep.carryCapacity) {
 		creep.moveTo(mySource);
