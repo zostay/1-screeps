@@ -33,6 +33,8 @@ Harvesters.prototype.checkCreepContinuity = function () {
 }
 
 Harvesters.prototype.assignSources = function () {
+    console.log('Harvesters: Assigning Sources');
+
     var room = this.creeps[0].room;
     room.memory.sources = room.memory.sources || {};
     var memory = room.memory.sources;
