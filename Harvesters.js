@@ -17,7 +17,7 @@ Harvesters.prototype.addCreep = function (creep) {
 	var sources = this.mon.findSources(creep.room);
     creep.memory.role   = 'harvester';
     creep.memory.state  = creep.memory.state || 'harvest';
-    creep.memory.source = creep.memory.source || sources[creep.memory.index % sources.lenght].id;
+    creep.memory.source = creep.memory.source || sources[creep.memory.index % sources.length].id;
     this.creeps.push(creep);
 }
 
