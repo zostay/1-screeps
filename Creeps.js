@@ -53,7 +53,7 @@ Creeps.prototype.states.idle = function (creep) {
 Creeps.prototype.behaveOne = function (creep) {
     var state = creep.memory.state || 'idle';
     var handler = this.states[ state ] || function() {
-        if (Game.tick % 60) == 0) {
+        if (Game.tick % 60 == 0) {
             creep.say('Error');
         }
     };
