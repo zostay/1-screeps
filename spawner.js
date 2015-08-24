@@ -99,7 +99,7 @@ module.exports = function (mon, spawn) {
     // checkCreepSupply(spawn, allCreeps, roleCreeps, 'guard', min, GUARD_BODY);
 
     spawnCreepEvery(spawn, roleCreeps, 'fixer',   LIFETIME, 100, worker);
-    spawnCreepEvery(spawn, roleCreeps, 'keeper',  LIFETIME / 2, 300, worker);
+    spawnCreepEvery(spawn, roleCreeps, 'keeper',  Math.round(LIFETIME / 6), 300, worker);
     spawnCreepEvery(spawn, roleCreeps, 'builder', LIFETIME / 2, 200, worker);
 
     var storages = mon.findStorages(spawn.room)
