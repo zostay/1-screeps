@@ -1,38 +1,19 @@
+var Creeps = require('Creeps');
+
 function Harvesters(mon, creeps) {
-    this.mon    = mon;
-    this.creeps = [];
-
-    if (creeps) {
-        for (var i in creeps) {
-            this.addCreep(creeps[i]);
-        }
-    }
-
-    Memory.Harvesters = Memory.Harvesters || {};
-    this.memory = Memory.Harvesters;
+    this.memoryKey = 'Harvesters';
+    Creeps.call(this);
 }
-Harvesters.prototype = new Object;
+Harvesters.prototype = new Creeps;
 
-Harvesters.prototype.addCreep = function (creep) {
+Harvesters.prototype.initCreep = function (creep) {
 	var sources = this.mon.findSources(creep.room);
     creep.memory.role   = 'harvester';
     creep.memory.state  = creep.memory.state || 'harvest';
     creep.memory.source = creep.memory.source || sources[creep.memory.index % sources.length].id;
-    this.creeps.push(creep);
 }
 
-Harvesters.prototype.checkCreepContinuity = function () {
-    var idsSaved = this.memory.ids;
-    var idsNow   = "";
-    for (var i in this.creeps) {
-        idsNow += this.creeps[i].id;
-    }
-
-    this.memory.ids = idsNow;
-    return idsSaved == idsNow;
-}
-
-Harvesters.prototype.assignSources = function () {
+Harvesters.prototype.doContinuityChange = function () {
     console.log('Harvesters: Assigning Sources');
 
     var room = this.creeps[0].room;
@@ -62,14 +43,7 @@ Harvesters.prototype.behave = function () {
         this.behaveOne(this.creeps[i]);
 }
 
-Harvesters.prototype.behaveOne = function (creep) {
-    if (creep.memory.state == 'harvest')
-        this.harvest(creep);
-    else
-        this.deliver(creep);
-}
-
-Harvesters.prototype.harvest = function (creep) {
+Harvesters.prototype.state.harvest = function (creep) {
     var mySource = Game.getObjectById(creep.memory.source);
 
 	if (creep.carry.energy < creep.carryCapacity) {
@@ -82,7 +56,7 @@ Harvesters.prototype.harvest = function (creep) {
     }
 }
 
-Harvesters.prototype.deliver = function (creep) {
+Harvesters.prototype.state.deliver = function (creep) {
     if (creep.carry.energy == 0) {
         creep.say("Harvest");
         creep.memory.state = 'harvest';
