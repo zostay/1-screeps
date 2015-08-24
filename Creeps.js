@@ -58,7 +58,7 @@ Creeps.prototype.behaveOne = function (creep) {
         }
     };
 
-    handle(creep);
+    handler(creep);
 }
 
 module.exports = Creeps;

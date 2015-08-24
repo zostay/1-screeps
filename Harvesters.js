@@ -35,14 +35,6 @@ Harvesters.prototype.doContinuityChange = function () {
     }
 }
 
-Harvesters.prototype.behave = function () {
-    if (this.creeps.length && !this.checkCreepContinuity())
-        this.assignSources();
-
-    for (var i in this.creeps)
-        this.behaveOne(this.creeps[i]);
-}
-
 Harvesters.prototype.states.harvest = function (creep) {
     var mySource = Game.getObjectById(creep.memory.source);
 
