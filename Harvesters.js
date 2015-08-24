@@ -43,7 +43,7 @@ Harvesters.prototype.behave = function () {
         this.behaveOne(this.creeps[i]);
 }
 
-Harvesters.prototype.state.harvest = function (creep) {
+Harvesters.prototype.states.harvest = function (creep) {
     var mySource = Game.getObjectById(creep.memory.source);
 
 	if (creep.carry.energy < creep.carryCapacity) {
@@ -56,7 +56,7 @@ Harvesters.prototype.state.harvest = function (creep) {
     }
 }
 
-Harvesters.prototype.state.deliver = function (creep) {
+Harvesters.prototype.states.deliver = function (creep) {
     if (creep.carry.energy == 0) {
         creep.say("Harvest");
         creep.memory.state = 'harvest';
