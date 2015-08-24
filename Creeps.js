@@ -21,7 +21,7 @@ Creeps.prototype.addCreep = function (creep) {
     this.creeps.push(creep);
 }
 
-Creep.prototype.checkCreepContinuity = function () {
+Creeps.prototype.checkCreepContinuity = function () {
     var idsSaved = this.memory.ids;
     var idsNow   = "";
     for (var i in this.creeps) {
