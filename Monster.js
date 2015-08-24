@@ -140,7 +140,6 @@ Monster.prototype.run = function() {
     var builder   = require('builder');
     var fixer     = require('fixer');
     var guard     = require('guard');
-    var harvester = require('harvester');
     var healer    = require('healer');
     var keeper    = require('keeper');
     var spawner   = require('spawner');
