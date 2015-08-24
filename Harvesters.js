@@ -2,7 +2,7 @@ var Creeps = require('Creeps');
 
 function Harvesters(mon, creeps) {
     this.memoryKey = 'Harvesters';
-    Creeps.call(this);
+    Creeps.call(this, mon, creeps);
 }
 Harvesters.prototype = new Creeps;
 
