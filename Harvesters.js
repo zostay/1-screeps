@@ -43,7 +43,7 @@ Harvesters.prototype.assignSources = function () {
         var source = sources[n];
         memory[ source.id ] = memory[ source.id ] || {};
         memory[ source.id ].count = memory[ source.id ].count || 3;
-        var count = room.sources[ source.id ]
+        var count = memory[ source.id ].count;
         var start = i;
         for (; i < start+count; i++) {
             if (i >= this.creeps.length) return;
