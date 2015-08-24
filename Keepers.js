@@ -15,7 +15,7 @@ Keepers.prototype.initCreep = function (creep) {
 }
 
 Keepers.prototype.states.repair = function (creep) {
-	var ramparts = mon.findRamparts(creep.room);
+	var ramparts = this.mon.findRamparts(creep.room);
 
     var minHits = 100000000;
     for (var i in ramparts) {
