@@ -7,6 +7,9 @@ function Harvesters(mon, creeps) {
             this.addCreep(creeps[i]);
         }
     }
+
+    Memory.Harvesters = Memory.Harvesters || {};
+    this.memory = Memory.Harvesters;
 }
 Harvesters.prototype = new Object;
 
@@ -18,7 +21,41 @@ Harvesters.prototype.addCreep = function (creep) {
     this.creeps.push(creep);
 }
 
+Harvesters.prototype.checkCreepContinuity = function () {
+    var idsSaved = this.memory.ids;
+    var idsNow   = "";
+    for (var i in this.creeps) {
+        idsNow += this.creeps[i].id;
+    }
+
+    this.memory.ids = idsNow;
+    return idsSaved == idsNow;
+}
+
+Harvesters.prototype.assignSources = function () {
+    var room = this.creeps[0].room;
+    room.memory.sources = room.memory.sources || {};
+    var memory = room.memory.sources;
+
+    var sources = this.mon.findSources(room);
+    var i = 0;
+    for (var n in sources) {
+        var source = sources[n];
+        memory[ source.id ] = memory[ source.id ] || {};
+        memory[ source.id ].count = memory[ source.id ].count || 3;
+        var count = room.sources[ source.id ]
+        var start = i;
+        for (; i < start+count; i++) {
+            if (i >= this.creeps.length) return;
+            this.creeps[i].source = source.id;
+        }
+    }
+}
+
 Harvesters.prototype.behave = function () {
+    if (this.creeps.length && !this.checkCreepContinuity())
+        this.assignSources();
+
     for (var i in this.creeps)
         this.behaveOne(this.creeps[i]);
 }
