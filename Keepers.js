@@ -47,7 +47,7 @@ Keepers.prototype.assignTargets = function () {
 
     for (var i in ramparts) {
         if (!ramparts[i]) continue;
-        var firstReplacement = currentTargets.keys()[0];
+        var firstReplacement = currentTargets.keys[0];
         var n = currentTargets[ firstReplacement ];
         delete currentTargets[ firstReplacement ];
         this.creeps[n].memory.target = ramparts[i].id;
