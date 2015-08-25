@@ -37,6 +37,7 @@ Keepers.prototype.assignTargets = function () {
     this.memory.iterations = Math.max(10, 50*Math.log10(ramparts[0].hits));
 
     for (var i in ramparts) {
+        var rampart = ramparts[i];
         var creep = currentTargets[ rampart.id ];
         if (creep) {
             delete currentTargets[ rampart.id ];
