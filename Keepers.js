@@ -20,6 +20,8 @@ Keepers.prototype.initCreep = function (creep) {
 Keepers.prototype.assignTargets = function () {
     if (!this.creeps.length) return;
 
+    console.log('Keepers: Assigning Targets');
+
     var currentTargets = {};
     var assignedCreeps = {};
     for (var n in this.creeps) {
