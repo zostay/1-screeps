@@ -115,7 +115,7 @@ Tankers.prototype.assignTargets = function () {
 }
 
 Tankers.prototype.behave = function () {
-    if (this.nullTarget) {
+    if (this.memory.nullTarget) {
         this.assignTargets();
     }
 
