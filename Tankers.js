@@ -97,7 +97,7 @@ Tankers.prototype.assignTargets = function () {
     var triedSecondary = false;
     var i = 0;
     for (var n in this.creeps) {
-        var creep = creeps[n];
+        var creep = this.creeps[n];
         if (creep.memory.target) continue;
 
         if (!targets || targets.length == 0)
