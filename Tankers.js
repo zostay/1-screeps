@@ -114,10 +114,19 @@ Tankers.prototype.assignTargets = function () {
     }
 }
 
+Tankers.prototype.behave = function () {
+    if (this.nullTarget) {
+        this.assignTargets();
+    }
+
+    Creeps.prototype.behave.call(this);
+}
+
 Tankers.prototype.states = Object.create(Creeps.prototype.states);
 Tankers.prototype.states.deliver = function (creep) {
     if (creep.carry.energy == 0) {
         creep.say("Gather");
+        creep.memory.target = null;
         creep.memory.state = 'gather';
     }
     else {
