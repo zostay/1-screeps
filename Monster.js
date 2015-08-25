@@ -97,6 +97,25 @@ Monster.prototype.findHostileCreeps = function(room) {
     });
 }
 
+Monster.prototype.findSpawnsNeedingEnergy = function (room) {
+    return this.cacheGetOrSet(room.id, 'findSpawnsNeedingEnergy', function () {
+        return room.find(FIND_MY_SPAWNS, {
+            filter: function (s) { return s.energy < s.energyCapacity }
+        });
+    });
+}
+
+Monster.prototype.findExtensionsNeedingEnergy = function (room) {
+    return this.cacheGetOrSet(room.id, 'findExtensionsNeedingEnergy', function() {
+        return room.find(FIND_MY_STRUCTURES, {
+            filter: function(s) {
+                return s.structureType == STRUCTURE_EXTENSION
+                    && s.energy < s.energyCapacity;
+            }
+        });
+    });
+}
+
 Monster.prototype.findStructuresNeedingEnergy = function(room) {
     return this.cacheGetOrSet(room.id, 'findStructuresNeedingEnergy', function() {
         return room.find(FIND_MY_STRUCTURES, {
@@ -145,10 +164,12 @@ Monster.prototype.run = function() {
     var tanker    = require('tanker');
 
     var Harvesters = require('Harvesters');
-    var harvesters = new Harvesters(this);
-
     var Keepers    = require('Keepers');
+    var Tankers    = require('Tankers');
+
+    var harvesters = new Harvesters(this);
     var keepers    = new Keepers(this);
+    var tankers    = new Tankers(this);
 
     for (var name in Game.creeps) {
     	var creep = Game.creeps[name];
@@ -166,11 +187,12 @@ Monster.prototype.run = function() {
         if (creep.memory.role == 'keeper')
             keepers.addCreep(creep);
         if (creep.memory.role == 'tanker')
-            tanker(this, creep);
+            tankers.addCreep(creep);
     }
 
     harvesters.behave();
     keepers.behave();
+    tankers.behave();
 
     for (var name in Game.spawns) {
         spawner(this, Game.spawns[name]);
