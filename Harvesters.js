@@ -35,6 +35,7 @@ Harvesters.prototype.doContinuityChange = function () {
     }
 }
 
+Harvesters.prototype.states = Object.create(Creeps.prototype.states);
 Harvesters.prototype.states.harvest = function (creep) {
     var mySource = Game.getObjectById(creep.memory.source);
 
