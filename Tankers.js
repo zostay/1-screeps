@@ -140,7 +140,7 @@ Tankers.prototype.states.deliver = function (creep) {
 }
 
 Tankers.prototype.states.gather = function (creep) {
-    util.gather(mon, creep, 'deliver', 'Deliver');
+    util.gather(this.mon, creep, 'deliver', 'Deliver');
 }
 
 module.exports = Tankers;
