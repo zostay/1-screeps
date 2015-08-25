@@ -61,7 +61,7 @@ Keepers.prototype.behave = function () {
         this.assignTargets();
     }
 
-    Creeps.behave.call(this);
+    Creeps.prototype.behave.call(this);
 }
 
 Keepers.prototype.states.repair = function (creep) {
