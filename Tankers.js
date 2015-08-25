@@ -101,7 +101,7 @@ Tankers.prototype.assignTargets = function () {
         if (creep.memory.target) continue;
 
         if (!targets || targets.length == 0)
-            targets = this.listTargets(creeps[0].room, iteration++);
+            targets = this.listTargets(this.creeps[0].room, iteration++);
 
         if (!targets) {
             creep.memory.target = null;
