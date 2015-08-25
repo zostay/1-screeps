@@ -2,7 +2,8 @@ var util = require('util');
 var Creeps = require('Creeps');
 
 function Keepers(mon, creeps) {
-    this.memoryKey = 'Keepers';
+    this.memoryKey  = 'Keepers';
+    this.nullTarget = false;
     Creeps.call(this, mon, creeps);
 }
 Keepers.prototype = new Creeps;
@@ -10,72 +11,72 @@ Keepers.prototype = new Creeps;
 Keepers.prototype.initCreep = function (creep) {
     creep.memory.role    = 'keeper';
     creep.memory.state   = creep.memory.state   || 'repair';
-    creep.memory.target  = creep.memory.target  || null;
-    creep.memory.repairs = creep.memory.repairs || 0;
+    if (!creep.memory.target) {
+        this.nullTarget = true;
+        creep.memory.target = null;
+    }
+}
+
+Keepers.prototype.assignTargets = function () {
+    if (!this.creeps.length) return;
+
+    var currentTargets = {};
+    var assignedCreeps = {};
+    for (var n in this.creeps) {
+        var creep = this.creeps[n];
+        currentTargets[ creep.memory.target ] = n;
+    }
+
+	var ramparts = this.mon.findRamparts(this.creeps[0].room);
+    ramparts.sort(function (a, b) {
+        return a.hits - b.hits;
+    });
+    ramparts = ramparts.slice(0, this.creeps.length);
+
+    if (!ramparts.length) return;
+    this.memory.iterations = Math.max(10, 50*Math.log10(ramparts[0].hits));
+
+    for (var i in ramparts) {
+        var creep = currentTargets[ rampart.id ];
+        if (creep) {
+            delete currentTargets[ rampart.id ];
+            ramparts[i] = null;
+        }
+    }
+
+    for (var i in ramparts) {
+        if (!ramparts[i]) continue;
+        var firstReplacement = currentTargets.keys()[0];
+        var n = currentTargets[ firstReplacement ];
+        delete currentTargets[ firstReplacement ];
+        this.creeps[n].memory.target = ramparts[i].id;
+        this.creeps[n].say('Next');
+    }
+}
+
+Keepers.prototype.behave = function () {
+    var iterations = this.memory.iterations || 10;
+    if ((Game.time + 3) % iterations == 0 || this.nullTarget) {
+        this.assignTargets();
+    }
+
+    Creeps.call(this);
 }
 
 Keepers.prototype.states.repair = function (creep) {
-	var ramparts = this.mon.findRamparts(creep.room);
-
-    var minHits = 100000000;
-    for (var i in ramparts) {
-        minHits = Math.min(ramparts[i].hits, minHits);
-    }
-
-    if (!ramparts.length) {
-        if (Game.time % 60 == 0) {
-            creep.say('Idle');
-        }
-        return;
-    }
-
     if (creep.carry.energy == 0) {
         creep.say('Gather');
         creep.memory.state = 'gather';
     }
-    else if (creep.memory.rampartTarget) {
-        var rampartTarget = Game.getObjectById(creep.memory.rampartTarget);
-        if (!creep.memory.repairsRemain) creep.memory.repairsRemain = 0;
+    else if (creep.memory.target) {
+        var rampartTarget = Game.getObjectById(creep.memory.target);
 
-        creep.moveTo(rampartTarget);
-        var r = creep.repair(rampartTarget);
-
-        if (r == OK)
-            creep.memory.repairsRemain--;
-
-        if (creep.memory.repairsRemain <= 0)
-            creep.memory.rampartTarget = null;
-
-        if (rampartTarget.hits == rampartTarget.hitsMax)
-            creep.memory.rampartTarget = null;
-
-        if (minHits < 700 && rampartTarget.hits >= 1000)
-            creep.memory.rampartTarget = null;
-    }
-    else {
-
-        // emergency
-        if (minHits < 700) {
-            for (var i in ramparts) {
-                if (ramparts[i].hits < 700) {
-                    creep.say('Weak');
-                    creep.memory.rampartTarget = ramparts[i].id;
-                    creep.memory.repairsRemain = 10;
-                    return;
-                }
-            }
+        if (rampartTarget) {
+            creep.moveTo(rampartTarget);
+            creep.repair(rampartTarget);
         }
-
-        // build-up
         else {
-            for (var i in ramparts) {
-                if (ramparts[i].hits == minHits) {
-                    creep.say('Strong');
-                    creep.memory.rampartTarget = ramparts[i].id;
-                    creep.memory.repairsRemain = 100;
-                    return;
-                }
-            }
+            creep.memory.target = null;
         }
     }
 }
