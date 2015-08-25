@@ -47,6 +47,7 @@ Keepers.prototype.assignTargets = function () {
         }
     }
 
+    // TODO This should try to assign the creep nearest to each rampart, right?
     for (var i in ramparts) {
         if (!ramparts[i]) continue;
         var firstReplacement = Object.keys(currentTargets)[0];
@@ -66,6 +67,7 @@ Keepers.prototype.behave = function () {
     Creeps.prototype.behave.call(this);
 }
 
+Keepers.prototype.states = Object.create(Creeps.prototype.states);
 Keepers.prototype.states.repair = function (creep) {
     if (creep.carry.energy == 0) {
         creep.say('Gather');
