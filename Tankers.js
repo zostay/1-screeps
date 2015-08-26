@@ -139,7 +139,7 @@ Tankers.prototype.states.deliver = function (creep) {
             else {
                 creep.moveTo(targetObj);
                 creep.transferEnergy(targetObj);
-                if (util.crowDistance(creep.pos, targetObj.pos))
+                if (util.crowDistance(creep.pos, targetObj.pos) == 1)
                     creep.memory.target = null;
             }
         }
