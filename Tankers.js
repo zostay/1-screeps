@@ -63,7 +63,7 @@ Tankers.prototype.listWorkers = function (room) {
 Tankers.prototype.assignTargets = function () {
     if (!this.creeps.length) return;
 
-    console.log('Tankers: Assigning Targets');
+    // console.log('Tankers: Assigning Targets');
 
     function sortByDistance(list, creep) {
         var distance   = {};
