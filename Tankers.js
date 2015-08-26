@@ -93,9 +93,8 @@ Tankers.prototype.assignTargets = function () {
         }
         if (creep.memory.target) continue;
 
-        while (targets.length == 0) {
+        while (targets && targets.length == 0) {
             targets = this.listTargets(creep.room, iteration++);
-            if (targets === null) break;
         }
 
         if (!targets || !targets.length) {
