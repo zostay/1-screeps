@@ -87,7 +87,10 @@ Tankers.prototype.assignTargets = function () {
     var i = 0;
     for (var n in this.creeps) {
         var creep = this.creeps[n];
-        if (creep.carry.energy == 0) continue;
+        if (creep.carry.energy == 0) {
+            creep.memory.state = 'gather';
+            continue;
+        }
         if (creep.memory.target) continue;
 
         while (targets.length == 0) {
@@ -136,9 +139,9 @@ Tankers.prototype.states.deliver = function (creep) {
             }
             else {
                 creep.moveTo(targetObj);
-                var r = creep.transferEnergy(targetObj);
-                if (r == OK)
-                    creep.memory.target = null
+                creep.transferEnergy(targetObj);
+                if (util.crowDistance(creep.pos, targetObj.pos))
+                    creep.memory.target = null;
             }
         }
     }
