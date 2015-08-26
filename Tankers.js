@@ -76,8 +76,6 @@ Tankers.prototype.assignTargets = function () {
                 energyNeed[ t.id ] = t.energyCapacity - t.energy;
         });
         list.sort(function(a, b) {
-            var needA = a.carryCapacity - a.carry.energy;
-            var needB = b.carryCapacity - b.carry.energy;
             return   distance[a.id] - distance[b.id]
                 || energyNeed[b.id] - energyNeed[a.id]
         });
