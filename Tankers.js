@@ -90,10 +90,12 @@ Tankers.prototype.assignTargets = function () {
         if (creep.carry.energy == 0) continue;
         if (creep.memory.target) continue;
 
-        if (!targets || targets.length == 0)
+        while (targets.length == 0) {
             targets = this.listTargets(creep, iteration++);
+            if (targets === null) break;
+        }
 
-        if (!targets) {
+        if (!targets || !targets.length) {
             creep.memory.target = null;
             creep.memory.state  = 'idle';
         }
