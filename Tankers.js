@@ -46,7 +46,7 @@ Tankers.prototype.listExtensions = function (room) {
 }
 
 Tankers.prototype.listWorkers = function (room) {
-    var creeps = mon.findMyCreeps(room).filter(
+    var creeps = this.mon.findMyCreeps(room).filter(
         function (c) {
             return (
                 c.memory.role == 'builder'
