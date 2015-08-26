@@ -70,7 +70,7 @@ Tankers.prototype.assignTargets = function () {
         var energyNeed = {};
         list.forEach(function (t) {
             distance[ t.id ] = util.crowDistance(creep.pos, t.pos);
-            if (t.carryCapacity)
+            if (t.carry)
                 energyNeed[ t.id ] = t.carryCapacity - t.carry.energy;
             else
                 energyNeed[ t.id ] = t.energyCapacity - t.energy;
