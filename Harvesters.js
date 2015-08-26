@@ -44,15 +44,13 @@ Harvesters.prototype.states.harvest = function (creep) {
 		creep.harvest(mySource);
 	}
     else {
-        creep.say("Deliver");
-        creep.memory.state = 'deliver';
+        this.changeState(creep, 'deliver');
     }
 }
 
 Harvesters.prototype.states.deliver = function (creep) {
     if (creep.carry.energy == 0) {
-        creep.say("Harvest");
-        creep.memory.state = 'harvest';
+        this.changeState(creep, 'harvest');
     }
     else {
         var storages = this.mon.findStructuresNeedingEnergy(creep.room);

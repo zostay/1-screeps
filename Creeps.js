@@ -43,6 +43,11 @@ Creeps.prototype.behave = function () {
         this.behaveOne(this.creeps[i]);
 }
 
+Creeps.prototype.changeState = function (creep, state) {
+    creep.memory.state = state;
+    creep.say(state.substr(0, 1).toUpperCase(), state.substr(1));
+}
+
 Creeps.prototype.states = {};
 Creeps.prototype.states.idle = function (creep) {
     if (Game.tick % 60 == 0) {

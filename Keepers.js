@@ -70,8 +70,7 @@ Keepers.prototype.behave = function () {
 Keepers.prototype.states = Object.create(Creeps.prototype.states);
 Keepers.prototype.states.repair = function (creep) {
     if (creep.carry.energy == 0) {
-        creep.say('Gather');
-        creep.memory.state = 'gather';
+        this.changeState(creep, 'gather');
     }
     else if (creep.memory.target) {
         var rampartTarget = Game.getObjectById(creep.memory.target);

@@ -88,7 +88,7 @@ Tankers.prototype.assignTargets = function () {
     for (var n in this.creeps) {
         var creep = this.creeps[n];
         if (creep.carry.energy == 0) {
-            creep.memory.state = 'gather';
+            this.changeState(creep, 'gather');
             continue;
         }
         if (creep.memory.target) continue;
@@ -100,13 +100,13 @@ Tankers.prototype.assignTargets = function () {
 
         if (!targets || !targets.length) {
             creep.memory.target = null;
-            creep.memory.state  = 'idle';
+            this.changeState(creep, 'idle');
         }
         else {
             sortByDistance(targets, creep);
 
             creep.memory.target = targets.shift().id;
-            creep.memory.state  = 'deliver';
+            this.changeState(creep, 'deliver');
         }
     }
 }
@@ -122,20 +122,19 @@ Tankers.prototype.behave = function () {
 Tankers.prototype.states = Object.create(Creeps.prototype.states);
 Tankers.prototype.states.deliver = function (creep) {
     if (creep.carry.energy == 0) {
-        creep.say("Gather");
+        this.changeState(creep, 'gather');
         creep.memory.target = null;
-        creep.memory.state = 'gather';
     }
     else {
         if (!creep.memory.target) {
-            creep.memory.state = 'idle';
+            this.changeState(creep, 'idle');
         }
         else {
             var targetObj = Game.getObjectById(creep.memory.target);
 
             if (!targetObj) {
+                this.changeState(creep, 'idle');
                 creep.memory.target = null;
-                creep.memory.state = 'idle';
             }
             else {
                 creep.moveTo(targetObj);
