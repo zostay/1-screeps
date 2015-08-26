@@ -136,7 +136,9 @@ Tankers.prototype.states.deliver = function (creep) {
             }
             else {
                 creep.moveTo(targetObj);
-                creep.transferEnergy(targetObj);
+                var r = creep.transferEnergy(targetObj);
+                if (r == OK)
+                    creep.memory.target = null
             }
         }
     }
