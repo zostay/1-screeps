@@ -38,38 +38,16 @@ Tankers.prototype.listTargets = function (creep, n) {
 }
 
 Tankers.prototype.listSpawns = function (creep) {
-    var distance = [];
-    var spawns = this.mon.findSpawnsNeedingEnergy(creep.room);
-    spawns.forEach(function (s) {
-        distance[ s.id ] = util.crowDistance(creep.pos, s.pos);
-    });
-    spawns.sort(function(a, b) {
-        var needA = a.energyCapacity - a.energy;
-        var needB = b.energyCapacity - b.energy;
-        return needB - needA || distance[a.id] - distance[b.id];
-    });
-    return spawns;
+    return this.mon.findSpawnsNeedingEnergy(creep.room);
 }
 
 Tankers.prototype.listExtensions = function (creep) {
-    var distance = [];
-    var storages = this.mon.findExtensionsNeedingEnergy(creep.room);
-    storages.forEach(function (s) {
-        distance[ s.id ] = util.crowDistance(creep.pos, s.pos);
-    });
-    storages.sort(function(a, b) {
-        var needA = a.energyCapacity - a.energy;
-        var needB = b.energyCapacity - b.energy;
-        return needB - needA || distance[a.id] - distance[b.id];
-    });
-    return storages;
+    return this.mon.findExtensionsNeedingEnergy(creep.room);
 }
 
 Tankers.prototype.listCreeps = function (creep) {
-    var distance = [];
     var creeps = mon.findMyCreeps(creep.room).filter(
         function (c) {
-            distance[ c.id ] = util.crowDistance(creep.pos, c.pos);
             return (
                 c.memory.role == 'builder'
                 || c.memory.role == 'keeper'
@@ -78,11 +56,6 @@ Tankers.prototype.listCreeps = function (creep) {
             && c.carry.energy > 5; // they aren't gathering yet
         }
     );
-    creeps.sort(function(a, b) {
-        var needA = a.carryCapacity - a.carry.energy;
-        var needB = b.carryCapacity - b.carry.energy;
-        return distance[a.id] - distance[b.id] || needB - needA;
-    });
 
     return creeps;
 }
@@ -91,6 +64,24 @@ Tankers.prototype.assignTargets = function () {
     if (!this.creeps.length) return;
 
     console.log('Tankers: Assigning Targets');
+
+    function sortByDistance(list, creep) {
+        var distance   = {};
+        var energyNeed = {};
+        list.forEach(function (t) {
+            distance[ t.id ] = util.crowDistance(creep.pos, t.pos);
+            if (t.carryCapacity)
+                energyNeed[ t.id ] = t.carryCapacity - t.carry.energy;
+            else
+                energyNeed[ t.id ] = t.energyCapacity - t.energy;
+        });
+        list.sort(function(a, b) {
+            var needA = a.carryCapacity - a.carry.energy;
+            var needB = b.carryCapacity - b.carry.energy;
+            return   distance[a.id] - distance[b.id]
+                || energyNeed[b.id] - energyNeed[a.id]
+        });
+    }
 
     var iteration = 0;
     var targets = null;
@@ -101,13 +92,15 @@ Tankers.prototype.assignTargets = function () {
         if (creep.memory.target) continue;
 
         if (!targets || targets.length == 0)
-            targets = this.listTargets(this.creeps[0].room, iteration++);
+            targets = this.listTargets(creep, iteration++);
 
         if (!targets) {
             creep.memory.target = null;
             creep.memory.state  = 'idle';
         }
         else {
+            sortByDistance(targets, creep);
+
             creep.memory.target = targets.shift();
             creep.memory.state  = 'deliver';
         }
