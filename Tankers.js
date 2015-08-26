@@ -22,31 +22,31 @@ Tankers.prototype.initCreep = function (creep) {
         this.memory.nullTarget = true;
 }
 
-Tankers.prototype.listTargets = function (creep, n) {
+Tankers.prototype.listTargets = function (room, n) {
     if (n == 0) {
-        return this.listSpawns(creep);
+        return this.listSpawns(room);
     }
     else if (n == 1) {
-        return this.listExtensions(creep);
+        return this.listExtensions(room);
     }
     else if (n == 2) {
-        return this.listWorkers(creep);
+        return this.listWorkers(room);
     }
     else {
         return null;
     }
 }
 
-Tankers.prototype.listSpawns = function (creep) {
-    return this.mon.findSpawnsNeedingEnergy(creep.room);
+Tankers.prototype.listSpawns = function (room) {
+    return this.mon.findSpawnsNeedingEnergy(room);
 }
 
-Tankers.prototype.listExtensions = function (creep) {
-    return this.mon.findExtensionsNeedingEnergy(creep.room);
+Tankers.prototype.listExtensions = function (room) {
+    return this.mon.findExtensionsNeedingEnergy(room);
 }
 
-Tankers.prototype.listCreeps = function (creep) {
-    var creeps = mon.findMyCreeps(creep.room).filter(
+Tankers.prototype.listCreeps = function (room) {
+    var creeps = mon.findMyCreeps(room).filter(
         function (c) {
             return (
                 c.memory.role == 'builder'
@@ -82,7 +82,7 @@ Tankers.prototype.assignTargets = function () {
     }
 
     var iteration = 0;
-    var targets = this.listTargets(creep, iteration++);
+    var targets = this.listTargets(this.creeps[0].room, iteration++);
     var triedSecondary = false;
     var i = 0;
     for (var n in this.creeps) {
@@ -91,7 +91,7 @@ Tankers.prototype.assignTargets = function () {
         if (creep.memory.target) continue;
 
         while (targets.length == 0) {
-            targets = this.listTargets(creep, iteration++);
+            targets = this.listTargets(creep.room, iteration++);
             if (targets === null) break;
         }
 
