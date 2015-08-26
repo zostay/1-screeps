@@ -45,7 +45,7 @@ Tankers.prototype.listExtensions = function (room) {
     return this.mon.findExtensionsNeedingEnergy(room);
 }
 
-Tankers.prototype.listCreeps = function (room) {
+Tankers.prototype.listWorkers = function (room) {
     var creeps = mon.findMyCreeps(room).filter(
         function (c) {
             return (
