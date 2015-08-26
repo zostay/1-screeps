@@ -99,7 +99,7 @@ Tankers.prototype.assignTargets = function () {
         else {
             sortByDistance(targets, creep);
 
-            creep.memory.target = targets.shift();
+            creep.memory.target = targets.shift().id;
             creep.memory.state  = 'deliver';
         }
     }
