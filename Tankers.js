@@ -3,9 +3,9 @@ var Creeps = require('Creeps');
 
 function Tankers(mon, creeps) {
     this.memoryKey  = 'Tankers';
-    this.nullSource = false;
-    this.nullTarget = false;
     Creeps.call(this, mon, creeps);
+    this.memory.nullSource = false;
+    this.memory.nullTarget = false;
 }
 Tankers.prototype = new Creeps;
 
